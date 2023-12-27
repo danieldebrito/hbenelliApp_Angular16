@@ -1,0 +1,158 @@
+<div class="card">
+  <div class="image-container">
+    <img src="{{ articulo.urlPhoto }}" class="img-fluid rounded thumbnail-image">
+  </div>
+  <div class="product-detail-container p-2">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="dress-name">{{ articulo.codigo }}</h5>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="dress-name">{{ articulo.nombre }} <br> {{ articulo.observaciones }}</h5>
+    </div>
+    <div class="d-flex justify-content-between align-items-center pt-1">
+      <div class="color-select d-flex ">
+      </div>
+      <div class="d-flex ">
+        {{ articulo.peso| titlecase }} {{ articulo.unidad }}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<div class="card">
+  <img src="{{ articulo.urlPhoto }}" class="card-img-top" width="100%">
+
+  <div class="pt-0 px-0">
+    <ul class="list-group">
+      <li class="list-group-item"><span class="text-muted">Codigo:</span> </li>
+      <li class="list-group-item description"> </li>
+      <li class="list-group-item quantity"><b>Cantidad:</b> </li>
+    </ul>
+  </div>
+
+
+    <div class="mx-3 mt-3 mb-2">
+    
+  </div>
+
+</div>
+
+
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      {{ articulo.urlPhoto }}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="text-muted">Codigo:</span> {{ articulo.codigo }}</li>
+          <li class="list-group-item description">{{ articulo.nombre }} <br> {{ articulo.observaciones }} </li>
+          <li class="list-group-item quantity"><b>Cantidad:</b> {{ articulo.peso| titlecase }} {{ articulo.unidad }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ articulo.urlPhoto }}" class="img-fluid rounded-start" width="100%">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card">
+
+  <div class="image-container">
+    <div class="first">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="discount">-25%</span>
+        <span class="wishlist"><i class="fa fa-heart-o"></i></span>
+      </div>
+    </div>
+    <img src="{{ articulo.urlPhoto }}" class="img-fluid rounded thumbnail-image">
+  </div>
+
+
+
+
+  
+  <div class="product-detail-container p-2">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="dress-name">{{ articulo.codigo }}</h5> 
+    </div>
+      <div class="d-flex justify-content-between align-items-center">
+      <h5 class="dress-name">{{ articulo.nombre }} <br> {{ articulo.observaciones }}</h5>
+      <div class="d-flex flex-column mb-2">
+        <span class="new-price">$3.99</span>
+        <small class="old-price text-right">$5.99</small>
+      </div>
+
+    </div>
+
+
+    <div class="d-flex justify-content-between align-items-center pt-1">
+
+      <div class="color-select d-flex ">
+
+        <input type="button" name="grey" class="btn creme">
+        <input type="button" name="red" class="btn red ml-2">
+        <input type="button" name="blue" class="btn blue ml-2">
+
+      </div>
+
+      <div class="d-flex ">
+
+        {{ articulo.peso| titlecase }} {{ articulo.unidad }}
+
+      </div>
+
+
+    </div>
+
+
+    <div class="d-flex justify-content-between align-items-center pt-1">
+      <div>
+        <i class="fa fa-star-o rating-star"></i>
+        <span class="rating-number">4.8</span>
+      </div>
+
+      <span class="buy">BUY +</span>
+
+    </div>
+
+
+
+  </div>
+
+</div>
+
+-->
