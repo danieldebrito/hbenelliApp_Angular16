@@ -21,6 +21,15 @@
         </div>
 
         <div class="p-2">
+          <select class="form-select" aria-label="Default select example" formControlName="subrubro">
+            <option value="" disabled selected hidden>Productos</option>
+            <option *ngFor="let item of subrubros" value="{{ item }}" >
+              {{ item}}
+            </option>
+          </select>
+        </div>
+
+        <div class="p-2">
           <button type="button" class="btn btn-danger" (click)="reset()" >Limpiar</button>
 
         </div>

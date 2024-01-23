@@ -15,6 +15,7 @@ export class CatalogMainComponent implements OnInit {
 
   public subrubros: String[] = [];
   public rubros: String[] = [];
+  public productos: String[] = [];
 
   constructor(
     private articulosSv: ArticulosService
@@ -58,6 +59,10 @@ export class CatalogMainComponent implements OnInit {
   public getRurbrosSubrubros(filterArticulos: Articulo[]) {
     this.subrubros = [...new Set(filterArticulos.map(x => x.subrubro || ''))] as String[];
     this.rubros = [...new Set(filterArticulos.map(x => x.rubro || ''))] as String[];
+  }
+
+  public getProductos(){
+    this.productos
   }
 
   ngOnInit(): void {

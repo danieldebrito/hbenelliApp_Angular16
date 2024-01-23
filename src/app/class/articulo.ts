@@ -4,7 +4,7 @@ export class Articulo {
     public id?: string,
     public rubro?: string,
     public subrubro?: string,
-    public idDetalle?: number,
+    public producto?: string,
     public codigo?: string,
     public nombre?: string,
     public observaciones?: string,

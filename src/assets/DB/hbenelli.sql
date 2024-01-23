@@ -31,7 +31,7 @@ CREATE TABLE `articulos` (
   `id` int(5) DEFAULT NULL,
   `rubro` varchar(50) DEFAULT NULL,
   `subrubro` varchar(50) DEFAULT NULL,
-  `idDetalle` int(5) DEFAULT NULL,
+  `producto` int(5) DEFAULT NULL,
   `codigo` varchar(20) DEFAULT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `observaciones` varchar(500) DEFAULT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `articulos` (
 -- Volcado de datos para la tabla `articulos`
 --
 
-INSERT INTO `articulos` (`id`, `rubro`, `subrubro`, `idDetalle`, `codigo`, `nombre`, `observaciones`, `peso`, `unidad`, `precioLista`, `precioNeto`, `urlPhoto`, `updated_at`, `created_at`) VALUES
+INSERT INTO `articulos` (`id`, `rubro`, `subrubro`, `producto`, `codigo`, `nombre`, `observaciones`, `peso`, `unidad`, `precioLista`, `precioNeto`, `urlPhoto`, `updated_at`, `created_at`) VALUES
 (1, 'alimentaria', 'especias', NULL, 'ES-ACHT', 'ACHUETE', NULL, '1.00', 'kg', NULL, NULL, 'assets/img/catalogo/default.jpg', NULL, NULL),
 (2, 'alimentaria', 'especias', NULL, 'ES-AJMO', 'AJI MOLIDO', NULL, '1.00', 'kg', NULL, NULL, 'assets/img/catalogo/default.jpg', NULL, NULL),
 (3, 'alimentaria', 'especias', NULL, 'ES-AJPN', 'AJO EN POLVO', 'Nacional', '1.00', 'kg', NULL, NULL, 'assets/img/catalogo/default.jpg', NULL, NULL),
@@ -348,7 +348,7 @@ CREATE TABLE `articulos2` (
   `id` int(11) NOT NULL,
   `subcategoria` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `idCategoria` int(11) NOT NULL,
-  `idDetalle` int(11) DEFAULT NULL,
+  `producto` int(11) DEFAULT NULL,
   `codigo` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `peso` decimal(7,2) NOT NULL,
@@ -362,7 +362,7 @@ CREATE TABLE `articulos2` (
 -- Volcado de datos para la tabla `articulos2`
 --
 
-INSERT INTO `articulos2` (`id`, `subcategoria`, `idCategoria`, `idDetalle`, `codigo`, `nombre`, `peso`, `unidad`, `urlPhoto`, `updated_at`, `created_at`) VALUES
+INSERT INTO `articulos2` (`id`, `subcategoria`, `idCategoria`, `producto`, `codigo`, `nombre`, `peso`, `unidad`, `urlPhoto`, `updated_at`, `created_at`) VALUES
 (1, 'alimentaria', 1, NULL, NULL, 'ACHUETE', '1.00', 'kg', '', '', ''),
 (2, 'alimentaria', 1, NULL, NULL, 'AJI MOLIDO', '1.00', 'kg', '', '', ''),
 (3, 'alimentaria', 1, NULL, NULL, 'AJO EN POLVO (NACIONAL)', '1.00', 'kg', '', '', ''),
