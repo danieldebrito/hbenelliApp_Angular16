@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Articulo } from 'src/app/class/articulo';
 import { Subrubro } from 'src/app/class/subrubro';
@@ -7,10 +13,9 @@ import { Busqueda } from 'src/app/class/busqueda';
 @Component({
   selector: 'app-catalogo-side-menu',
   templateUrl: './catalogo-side-menu.component.html',
-  styleUrls: ['./catalogo-side-menu.component.scss']
+  styleUrls: ['./catalogo-side-menu.component.scss'],
 })
 export class CatalogoSideMenuComponent {
-
   @Output() busquedaSeleccionada = new EventEmitter();
   @Output() busquedaLimpiar = new EventEmitter();
 
@@ -20,17 +25,16 @@ export class CatalogoSideMenuComponent {
   public articulo: Articulo;
 
   public busqueda: Busqueda = {
-    rubro: "",
-    subrubro: "",
-  }
+    rubro: '',
+    subrubro: '',
+  };
 
-  constructor(
-    // private repuestosSv: repuestosService,
-  ) {
+  constructor() // private repuestosSv: repuestosService,
+  {
     this.articulo = {};
 
-    this.busqueda.rubro = "";
-    this.busqueda.subrubro = "";
+    this.busqueda.rubro = '';
+    this.busqueda.subrubro = '';
   }
 
   altaForm = new FormGroup({
@@ -47,12 +51,12 @@ export class CatalogoSideMenuComponent {
   });
 
   public reset() {
-    this.busqueda.rubro = "textil";
-    this.busqueda.subrubro = "";
+    this.busqueda.rubro = 'textil';
+    this.busqueda.subrubro = '';
 
     this.altaForm.setValue({
-      rubro: "",
-      subrubro: ""
+      rubro: '',
+      subrubro: '',
     });
     this.busquedaSeleccionada.emit(this.busqueda);
   }

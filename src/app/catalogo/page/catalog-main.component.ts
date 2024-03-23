@@ -61,10 +61,6 @@ export class CatalogMainComponent implements OnInit {
     this.rubros = [...new Set(filterArticulos.map(x => x.rubro || ''))] as String[];
   }
 
-  public getProductos(){
-    this.productos
-  }
-
   ngOnInit(): void {
     this.getArticulos();
   }
