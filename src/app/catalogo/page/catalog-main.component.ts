@@ -34,12 +34,9 @@ export class CatalogMainComponent implements OnInit {
   }
 
   filtrar(event: Busqueda) {
-
-
     console.log(event);
 
     let filteredArticulos = [...this.articulos];
-
     if (event.rubro !== '') {
       filteredArticulos = [...filteredArticulos.filter(art => art.rubro === event.rubro)];
     }
@@ -48,7 +45,6 @@ export class CatalogMainComponent implements OnInit {
     }
 
     this.filterArticulos = filteredArticulos;
-
     this.getRurbrosSubrubros(this.filterArticulos)
   }
 
