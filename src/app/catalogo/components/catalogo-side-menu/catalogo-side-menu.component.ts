@@ -17,6 +17,8 @@ export class CatalogoSideMenuComponent {
   @Input() subrubros: String[] = [];
   @Input() rubros: String[] = [];
 
+  @Input() articulos: Articulo[] = [];
+
   public articulo: Articulo;
 
   public busqueda: Busqueda = {
@@ -57,9 +59,18 @@ export class CatalogoSideMenuComponent {
     this.busquedaSeleccionada.emit(this.busqueda);
   }
 
-  public onSubmit() {
+  public filtraRubro() {
+    this.busqueda.rubro = this.altaForm.getRawValue().rubro;
+    this.busqueda.subrubro = '';
+    this.busquedaSeleccionada.emit(this.busqueda);
+  }
+
+  public filtraSubRubro() {
     this.busqueda.rubro = this.altaForm.getRawValue().rubro;
     this.busqueda.subrubro = this.altaForm.getRawValue().subrubro;
+
+    console.log(this.articulos);
+    
     this.busquedaSeleccionada.emit(this.busqueda);
   }
 }

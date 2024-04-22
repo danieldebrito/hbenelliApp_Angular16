@@ -16,6 +16,8 @@ export class CatalogMainComponent implements OnInit {
   public subrubros: String[] = [];
   public rubros: String[] = [];
 
+  public busqueda: Busqueda = {};
+
   constructor(
     private articulosSv: ArticulosService
   ) { }
@@ -34,6 +36,8 @@ export class CatalogMainComponent implements OnInit {
   }
 
   filtrar(event: Busqueda) {
+
+    this.busqueda = event;
     console.log(event);
 
     let filteredArticulos = [...this.articulos];
@@ -61,8 +65,9 @@ export class CatalogMainComponent implements OnInit {
   }
 
   public getRurbrosSubrubros(filterArticulos: Articulo[]) {
-    this.subrubros = [...new Set(filterArticulos.map(x => x.subrubro || ''))] as String[];
+
     this.rubros = [...new Set(this.articulos.map(x => x.rubro || ''))].filter( r => r != '' ) as String[];
+    this.subrubros = [...new Set((this.articulos.filter(x => x.rubro == this.busqueda.rubro || '')).map( sr => sr.subrubro ))] as String[];
   }
 
   ngOnInit(): void {

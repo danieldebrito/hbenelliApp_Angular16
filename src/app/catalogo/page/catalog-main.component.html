@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-3">
             <app-catalogo-side-menu (busquedaSeleccionada)="filtrar($event)"
-            [rubros]="rubros" [subrubros]="subrubros" ></app-catalogo-side-menu>
+            [rubros]="rubros" [subrubros]="subrubros" [articulos]="filterArticulos" ></app-catalogo-side-menu>
         </div>
         <div class="col-sm-9">
             <app-catalog-cards-grid  [articulos]="filterArticulos"></app-catalog-cards-grid>

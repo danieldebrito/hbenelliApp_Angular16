@@ -1,9 +1,9 @@
-<form [formGroup]="altaForm" (change)="onSubmit()">
+<form [formGroup]="altaForm" >
 
     <div class="card">
       <div class="p-3">
         <div class="p-2">
-          <select class="form-select" aria-label="Default select example" formControlName="rubro">
+          <select (change)="filtraRubro()" class="form-select" aria-label="Default select example" formControlName="rubro">
             <option value="" disabled selected hidden>Filtrar por Rubro</option>
             <option *ngFor="let item of rubros" value="{{ item }}" >
               {{ item }}
@@ -12,7 +12,7 @@
         </div>
 
         <div class="p-2">
-          <select class="form-select" aria-label="Default select example" formControlName="subrubro">
+          <select (change)="filtraSubRubro()" class="form-select" aria-label="Default select example" formControlName="subrubro">
             <option value="" disabled selected hidden>Filtrar por Subrubro</option>
             <option *ngFor="let item of subrubros" value="{{ item }}" >
               {{ item}}
@@ -22,7 +22,6 @@
 
         <div class="p-2">
           <button type="button" class="btn btn-danger" (click)="reset()" >Limpiar</button>
-
         </div>
 
       </div>
