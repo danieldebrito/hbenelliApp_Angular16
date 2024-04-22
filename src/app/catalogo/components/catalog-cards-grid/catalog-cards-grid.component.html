@@ -1,0 +1,11 @@
+<div class="mt-2">
+  <pagination-controls (pageChange)="p = $event" previousLabel="Previo" nextLabel="Siguiente"></pagination-controls>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+  <div class="col" *ngFor="let item of articulos | paginate: { itemsPerPage: 15, currentPage: p }">
+    <app-card [articulo]="item" ></app-card>
+  </div>
+
+</div>
