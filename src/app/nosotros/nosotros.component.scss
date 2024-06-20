@@ -3,6 +3,15 @@
     height: 400px;
     flex-shrink: 0;
     background-color: rgb(231, 231, 231);
+    
+}
+
+.nosotros {
+  background-image: url('../../assets/nosotros/slide.png');
+  background-size: cover; /* Ajusta la imagen al tamaño completo del elemento */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  /* Agrega más estilos según tus necesidades */
 }
 
 
@@ -11,7 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #0C4061;
+    color: #ffffff;
 }
 
 .geometric {
