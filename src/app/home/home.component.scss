@@ -113,3 +113,11 @@
 .whatsapp-icon {
   margin-top: 13px;
 }
+
+.imgBenelli {
+  img {
+    max-width: 100%; // Ajusta el ancho de la imagen según tus necesidades
+    border-radius: 15px; // Agrega esquinas redondeadas
+    box-shadow: 0 2px 4px rgba(102, 97, 97, 0.1); // Agrega una sombra suave
+  }
+}
