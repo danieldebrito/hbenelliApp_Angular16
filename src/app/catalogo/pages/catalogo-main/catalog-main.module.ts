@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CatalogMainRoutingModule } from './catalog-main-routing.module';
 import { CatalogMainComponent } from './catalog-main.component';
-import { ComponentsModule } from '../components/components.module';
+import { ComponentsModule } from '../../components/components.module';
 
 
 @NgModule({

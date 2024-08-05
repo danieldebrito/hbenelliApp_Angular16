@@ -1,0 +1,43 @@
+<div class="catalog-container">
+  <div class="catalog-header">
+    <h2>Lista de Artículos</h2>
+    <button (click)="exportToExcel()">Exportar a Excel</button>
+    <button (click)="navigateToAdd()">Agregar Nuevo Artículo</button>
+  </div>
+  <div class="catalog-content">
+    <ul>
+      <li *ngFor="let articulo of paginatedArticulos; let i = index">
+        <div class="articulo row">
+          <div class="col-md-3">
+            <img [src]="articulo.urlPhoto" alt="{{ articulo.nombre }}" class="articulo-img">
+          </div>
+          <div class="col-md-3">
+            <h3>{{ articulo.nombre }}</h3>
+            <p><strong>Código:</strong> {{ articulo.codigo }}</p>
+            <p><strong>Peso:</strong> {{ articulo.peso }} {{ articulo.unidad }}</p>
+          </div>
+          <div class="col-md-3">
+            <p><strong>Precio Lista:</strong> {{ articulo.precioLista | currency }}</p>
+            <p><strong>Precio Neto:</strong> {{ articulo.precioNeto | currency }}</p>
+          </div>
+          <div class="col-md-3">
+            <div class="articulo-details">
+              <p><strong>Rubro:</strong> {{ articulo.rubro }}</p>
+              <p><strong>Subrubro:</strong> {{ getSubrubroNombre(articulo.subrubroId) }}</p>
+              <p><strong>Observaciones:</strong> {{ articulo.observaciones }}</p>
+            </div>
+            <div class="articulo-actions">
+              <button (click)="editArticulo(articulo)">Editar</button>
+              <button (click)="deleteArticulo(articulo.id)">Borrar</button>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="pagination-controls">
+    <button (click)="p = p - 1" [disabled]="p === 1">Anterior</button>
+    <span>Página {{ p }}</span>
+    <button (click)="p = p + 1" [disabled]="p * itemsPerPage >= articulos.length">Siguiente</button>
+  </div>
+</div>

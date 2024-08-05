@@ -1,0 +1,24 @@
+.admin-navbar .breadcrumb {
+  background-color: #f8f9fa; /* Light gray background */
+  border-radius: .375rem; /* Rounded corners */
+  padding: .75rem 1rem; /* Padding */
+}
+
+.admin-navbar .breadcrumb-item + .breadcrumb-item::before {
+  content: ">"; /* Separator */
+  padding: 0 .5rem; /* Spacing */
+  color: #6c757d; /* Light gray color */
+}
+
+.admin-navbar .breadcrumb a {
+  text-decoration: none; /* Remove underline */
+  color: #007bff; /* Blue links */
+}
+
+.admin-navbar .breadcrumb a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+.admin-navbar .breadcrumb .active {
+  color: #6c757d; /* Gray color for active link */
+}

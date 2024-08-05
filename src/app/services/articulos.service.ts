@@ -22,10 +22,12 @@ export class ArticulosService {
   }
 
   // GET one article by ID
-  getById(id: number) {
-    return this.baseService.get(`${this.baseUrl}${id}/`);
+  getById(id: number): Observable<Articulo> {
+    return this.baseService.get(`${this.baseUrl}/${id}`).pipe(
+      map((data: Object) => data as Articulo)
+    );
   }
-
+  
   // POST (create) a new article
   create(data: any) {
     return this.baseService.post(this.baseUrl, data);
