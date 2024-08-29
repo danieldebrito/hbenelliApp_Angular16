@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: 'sign-in',
+    path: 'login',
     loadChildren: () =>
       import('./auth/pages/sign-in/sign-in.module').then((m) => m.SignInModule),
     data: { animation: 'sign-in' },
@@ -45,7 +45,11 @@ const routes: Routes = [
         (m) => m.CatalogoAdminModule
       ),
   },
-  { path: 'sign-up', loadChildren: () => import('./auth/pages/sign-up/sign-up.module').then(m => m.SignUpModule) },
+  {
+    path: 'sign-up',
+    loadChildren: () =>
+      import('./auth/pages/sign-up/sign-up.module').then((m) => m.SignUpModule),
+  },
 
   // { path: '**', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) }
 ];

@@ -1,90 +1,94 @@
 <div class="catalog-form-container">
-    <h2>{{ isEditMode ? 'Editar Artículo' : 'Agregar Nuevo Artículo' }}</h2>
-    <form [formGroup]="articuloForm" (ngSubmit)="submitForm()">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="urlPhoto">Foto:</label>
-            <input type="file" id="urlPhoto" (change)="onFileChange($event)" class="form-control" />
-            <div *ngIf="imageUrl">
-              <img [src]="imageUrl" alt="Previsualización" class="preview-img">
-            </div>
-            <div *ngIf="articuloForm.get('urlPhoto')?.invalid && articuloForm.get('urlPhoto')?.touched" class="error">
-              Foto es requerida.
-            </div>
+  <h2>{{ isEditMode ? 'Editar Artículo' : 'Agregar Nuevo Artículo' }}</h2>
+  <form [formGroup]="articuloForm" (ngSubmit)="submitForm()">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="urlPhoto">Foto:</label>
+          <input type="file" id="urlPhoto" (change)="onFileChange($event)" class="form-control" />
+          <div *ngIf="imageUrl">
+            <img [src]="imageUrl" alt="Previsualización" class="preview-img">
           </div>
-        </div>
-        <div class="col-md-8">
-          <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input id="nombre" formControlName="nombre" class="form-control" />
-            <div *ngIf="articuloForm.get('nombre')?.invalid && articuloForm.get('nombre')?.touched" class="error">
-              Nombre es requerido.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" formControlName="descripcion" class="form-control"></textarea>
-            <div *ngIf="articuloForm.get('descripcion')?.invalid && articuloForm.get('descripcion')?.touched" class="error">
-              Descripción es requerida.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="codigo">Código:</label>
-            <input id="codigo" formControlName="codigo" class="form-control" />
-            <div *ngIf="articuloForm.get('codigo')?.invalid && articuloForm.get('codigo')?.touched" class="error">
-              Código es requerido.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="peso">Peso:</label>
-            <input id="peso" formControlName="peso" class="form-control" />
-            <div *ngIf="articuloForm.get('peso')?.invalid && articuloForm.get('peso')?.touched" class="error">
-              Peso es requerido.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="unidad">Unidad:</label>
-            <input id="unidad" formControlName="unidad" class="form-control" />
-            <div *ngIf="articuloForm.get('unidad')?.invalid && articuloForm.get('unidad')?.touched" class="error">
-              Unidad es requerida.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="precioLista">Precio Lista:</label>
-            <input id="precioLista" formControlName="precioLista" class="form-control" />
-            <div *ngIf="articuloForm.get('precioLista')?.invalid && articuloForm.get('precioLista')?.touched" class="error">
-              Precio Lista es requerido y debe ser un número válido.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="precioNeto">Precio Neto:</label>
-            <input id="precioNeto" formControlName="precioNeto" class="form-control" />
-            <div *ngIf="articuloForm.get('precioNeto')?.invalid && articuloForm.get('precioNeto')?.touched" class="error">
-              Precio Neto es requerido y debe ser un número válido.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="rubro">Rubro:</label>
-            <input id="rubro" formControlName="rubro" class="form-control" />
-            <div *ngIf="articuloForm.get('rubro')?.invalid && articuloForm.get('rubro')?.touched" class="error">
-              Rubro es requerido.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="subrubro">Subrubro:</label>
-            <input id="subrubro" formControlName="subrubro" class="form-control" />
-            <div *ngIf="articuloForm.get('subrubro')?.invalid && articuloForm.get('subrubro')?.touched" class="error">
-              Subrubro es requerido.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="observaciones">Observaciones:</label>
-            <textarea id="observaciones" formControlName="observaciones" class="form-control"></textarea>
+          <div *ngIf="!articuloForm.get('urlPhoto')?.value && (articuloForm.get('urlPhoto')?.touched || imageFile)" class="error">
+            Foto es requerida.
           </div>
         </div>
       </div>
-      <button type="submit" [disabled]="articuloForm.invalid" class="btn btn-primary">{{ isEditMode ? 'Actualizar Artículo' : 'Agregar Artículo' }}</button>
-    </form>
-  </div>
-  
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input id="nombre" formControlName="nombre" class="form-control" />
+          <div *ngIf="articuloForm.get('nombre')?.invalid && articuloForm.get('nombre')?.touched" class="error">
+            Nombre es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Descripción:</label>
+          <textarea id="descripcion" formControlName="descripcion" class="form-control"></textarea>
+          <div *ngIf="articuloForm.get('descripcion')?.invalid && articuloForm.get('descripcion')?.touched"
+            class="error">
+            Descripción es requerida.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="codigo">Código:</label>
+          <input id="codigo" formControlName="codigo" class="form-control" />
+          <div *ngIf="articuloForm.get('codigo')?.invalid && articuloForm.get('codigo')?.touched" class="error">
+            Código es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="peso">Peso:</label>
+          <input id="peso" formControlName="peso" class="form-control" />
+          <div *ngIf="articuloForm.get('peso')?.invalid && articuloForm.get('peso')?.touched" class="error">
+            Peso es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="unidad">Unidad:</label>
+          <input id="unidad" formControlName="unidad" class="form-control" />
+          <div *ngIf="articuloForm.get('unidad')?.invalid && articuloForm.get('unidad')?.touched" class="error">
+            Unidad es requerida.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="precioLista">Precio Lista:</label>
+          <input id="precioLista" formControlName="precioLista" class="form-control" />
+          <div *ngIf="articuloForm.get('precioLista')?.invalid && articuloForm.get('precioLista')?.touched"
+            class="error">
+            Precio Lista es requerido y debe ser un número válido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="precioNeto">Precio Neto:</label>
+          <input id="precioNeto" formControlName="precioNeto" class="form-control" />
+          <div *ngIf="articuloForm.get('precioNeto')?.invalid && articuloForm.get('precioNeto')?.touched" class="error">
+            Precio Neto es requerido y debe ser un número válido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="rubro">Rubro:</label>
+          <input id="rubro" formControlName="rubro" class="form-control" />
+          <div *ngIf="articuloForm.get('rubro')?.invalid && articuloForm.get('rubro')?.touched" class="error">
+            Rubro es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subrubro">Subrubro:</label>
+          <input id="subrubro" formControlName="subrubro" class="form-control" />
+          <div *ngIf="articuloForm.get('subrubro')?.invalid && articuloForm.get('subrubro')?.touched" class="error">
+            Subrubro es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="observaciones">Observaciones:</label>
+          <textarea id="observaciones" formControlName="observaciones" class="form-control"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="articuloForm.invalid" class="btn btn-primary">
+      {{ isEditMode ? 'Actualizar Artículo' : 'Agregar Artículo' }}
+    </button>
+  </form>
+</div>

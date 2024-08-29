@@ -7,9 +7,6 @@ import { HttpClient} from '@angular/common/http';
 export class BaseService {
 
     // private baseUrl = 'http://127.0.0.1:8000/api/';
-    // private baseUrl = 'http://api.hbenelli.com.ar/public/api/';
-    // private baseUrl = 'https://apibenelli.makerds.com/api/public/api/';
-    // private baseUrl = 'http://hbenelli.com.ar/laravel8/public/api/';
     private baseUrl = 'https://api.hbenelli.com.ar/public/api/';
     
     constructor(private http: HttpClient) { }
