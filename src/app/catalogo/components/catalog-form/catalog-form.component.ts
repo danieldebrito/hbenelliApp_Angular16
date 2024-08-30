@@ -103,7 +103,7 @@ export class CatalogFormComponent implements OnInit {
           }
         );
       } else {
-        this.articulosService.create(formData).subscribe(
+        this.articulosService.save(formData).subscribe(
           () => {
             alert('Artículo agregado con éxito');
             this.articuloForm.reset();

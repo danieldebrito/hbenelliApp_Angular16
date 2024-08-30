@@ -29,7 +29,7 @@ export class CatalogListComponent implements OnInit {
   }
 
   loadArticulos() {
-    this.articulosService.getAll().subscribe((data) => {
+    this.articulosService.gets().subscribe((data) => {
       this.articulos = data;
     });
   }
@@ -65,7 +65,7 @@ export class CatalogListComponent implements OnInit {
     this.router.navigate(['catalogoadmin/edit/', articulo.id]);
   }
 
-  deleteArticulo(id: number) {
+  deleteArticulo(id: any) {
     if (confirm('¿Está seguro de que desea eliminar este artículo?')) {
       this.articulosService.delete(id).subscribe(() => {
         this.loadArticulos();

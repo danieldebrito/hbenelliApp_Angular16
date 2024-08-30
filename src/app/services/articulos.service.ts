@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { Articulo } from '../class/articulo';
+//import { Articulo } from '../class/articulo';
 import { BaseService } from './_base.service';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -9,49 +10,39 @@ import { BaseService } from './_base.service';
   providedIn: 'root'
 })
 export class ArticulosService {
+  API_URI = '';
+
 
   private baseUrl = 'articulos';
 
-  constructor(private baseService: BaseService) { }
-
-  // GET all
-  getAll(): Observable<Articulo[]> {
-    return this.baseService.get(this.baseUrl).pipe(
-      map((data: Object) => data as Articulo[])
-    );
+  constructor(
+    private http: HttpClient,
+    private baseService: BaseService) {
+    //this.API_URI = this.base.getURL();
+    //this.API_URI = 'http://makerds.com/api/public/api';
+    this.API_URI = this.baseService.getURL() + this.baseUrl;
   }
 
-  // GET one article by ID
-  getById(id: number): Observable<Articulo> {
-    return this.baseService.get(`${this.baseUrl}/${id}`).pipe(
-      map((data: Object) => data as Articulo)
-    );
-  }
-  
-  // POST (create) a new article
-  create(data: any) {
-    return this.baseService.post(this.baseUrl, data);
+ 
+
+  gets(): Observable<any> {
+    return this.http.get(`${this.API_URI}`);
   }
 
-  // PUT (update) an existing article
-  update(id: number, data: any) {
-    return this.baseService.put(`${this.baseUrl}${id}/`, data);
+  getById(id: number): Observable<any> {
+    return this.http.get(`${this.API_URI}/${id}`);
   }
 
-  // DELETE an existing article
-  delete(id: number) {
-    return this.baseService.delete(`${this.baseUrl}${id}/`);
+  delete(id: string) {
+    return this.http.delete(`${this.API_URI}/${id}`);
   }
 
+  save(element: any) {
+    return this.http.post(`${this.API_URI}`, element);
+  }
 
-  handleError(error: any) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(() => new Error(errorMessage));
+  update(id: string | number, updated: any): Observable<any> {
+    return this.http.post(`${this.API_URI}/${id}`, updated);
   }
 
 }

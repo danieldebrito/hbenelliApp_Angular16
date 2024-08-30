@@ -10,6 +10,11 @@ export class BaseService {
     private baseUrl = 'https://api.hbenelli.com.ar/public/api/';
     
     constructor(private http: HttpClient) { }
+
+    public getURL(){
+      return this.baseUrl;
+    }
+  
   
     // GET request
     get(url: string) {

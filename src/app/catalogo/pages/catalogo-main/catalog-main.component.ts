@@ -24,7 +24,7 @@ export class CatalogMainComponent implements OnInit {
 
   public getArticulos() {
 
-      this.articulosSv.getAll().subscribe(data => {
+      this.articulosSv.gets().subscribe(data => {
       this.articulos = data;
 
       this.getRurbrosSubrubros(this.filterArticulos);

@@ -21,7 +21,7 @@ export class CatalogoAdminComponent implements OnInit {
   }
 
   loadArticulos() {
-    this.articulosService.getAll().subscribe((data) => {
+    this.articulosService.gets().subscribe((data) => {
       this.articulos = data;
     });
   }

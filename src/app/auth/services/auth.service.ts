@@ -262,7 +262,8 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
       }),
       map((usuario: any) => {
         if (usuario) {
-          return usuario.emailVerified  && usuario.habilitado && usuario.role === ERole.administrador;
+          //console.log(usuario.role == ERole.administrador);
+          return /*usuario.emailVerified  && usuario.habilitado &&*/ usuario.role == ERole.administrador;
         }
         return false;
       }),

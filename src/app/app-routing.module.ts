@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from './auth/guards/admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -40,10 +41,13 @@ const routes: Routes = [
   },
   {
     path: 'catalogoadmin',
-    loadChildren: () =>
-      import('./catalogo/pages/catalogo-admin/catalogo-admin.module').then(
-        (m) => m.CatalogoAdminModule
-      ),
+    loadChildren: () => import('./catalogo/pages/catalogo-admin/catalogo-admin.module').then(m => m.CatalogoAdminModule),
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./admin/pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [AdminGuard]
   },
   {
     path: 'sign-up',
