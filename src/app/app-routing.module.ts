@@ -16,6 +16,18 @@ const routes: Routes = [
     data: { animation: 'sign-in' },
   },
   {
+    path: 'register',
+    loadChildren: () =>
+      import('./auth/pages/sign-up/sign-up.module').then((m) => m.SignUpModule),
+    data: { animation: 'sign-in' },
+  },
+  {
+    path: 'createadmin',
+    loadChildren: () =>
+      import('./auth/pages/create-admin/create-admin.module').then((m) => m.CreateAdminModule),
+    data: { animation: 'sign-in' },
+  },
+  {
     path: 'catalogo',
     loadChildren: () =>
       import('./catalogo/pages/catalogo-main/catalog-main.module').then(
@@ -54,6 +66,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./auth/pages/sign-up/sign-up.module').then((m) => m.SignUpModule),
   },
+  { path: 'createadmin', loadChildren: () => import('./auth/pages/create-admin/create-admin.module').then(m => m.CreateAdminModule) },
+  { path: 'usuarioslistado', loadChildren: () => import('./auth/pages/usuarios-listado/usuarios-listado.module').then(m => m.UsuariosListadoModule) },
 
   // { path: '**', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) }
 ];

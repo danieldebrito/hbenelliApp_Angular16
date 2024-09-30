@@ -1,0 +1,64 @@
+<div class="container mt-3">
+    <div class="auth-container">
+      <div class="auth-header">
+        <h3>Registro de {{ role | titlecase }}</h3>
+      </div>
+  
+      <form [formGroup]="createForm" (ngSubmit)="createUser()">
+        <div class="row">
+          <div class="col-sm-6">
+            <!-- Campo Email -->
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input class="form-control" type="email" id="email" formControlName="email" required>
+              <div class="error" *ngIf="createForm.get('email')?.touched && createForm.get('email')?.errors?.['required']">
+                El campo Email es requerido.
+              </div>
+              <div class="error" *ngIf="createForm.get('email')?.touched && createForm.get('email')?.errors?.['minlength']">
+                El campo Email debe tener al menos 6 caracteres.
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-sm-6">
+            <!-- Campo Password -->
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input class="form-control" type="password" id="password" formControlName="password" required>
+              <div class="error" *ngIf="createForm.get('password')?.touched && createForm.get('password')?.errors?.['required']">
+                El campo Password es requerido.
+              </div>
+              <div class="error" *ngIf="createForm.get('password')?.touched && createForm.get('password')?.errors?.['minlength']">
+                El campo Password debe tener al menos 6 caracteres.
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-sm-6">
+            <!-- Campo Display Name -->
+            <div class="form-group">
+              <label for="displayName">Display Name:</label>
+              <input class="form-control" type="text" id="displayName" formControlName="displayName" required>
+              <div class="error" *ngIf="createForm.get('displayName')?.touched && createForm.get('displayName')?.errors?.['required']">
+                El campo Display Name es requerido.
+              </div>
+              <div class="error" *ngIf="createForm.get('displayName')?.touched && createForm.get('displayName')?.errors?.['minlength']">
+                El campo Display Name debe tener al menos 2 caracteres.
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-group mt-3">
+          <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid">
+            Crear Usuario
+          </button>
+        </div>
+      </form>
+  
+      <div class="redirectToLogin mt-3">
+        <span>¿Ya tenés cuenta? <a class="redirect" routerLink="/sign-in">Ingresá!</a></span>
+      </div>
+    </div>
+  </div>
+  
