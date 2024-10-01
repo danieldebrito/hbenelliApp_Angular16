@@ -28,6 +28,12 @@ const routes: Routes = [
     data: { animation: 'sign-in' },
   },
   {
+    path: 'usuarios',
+    loadChildren: () =>
+      import('./auth/pages/usuarios-listado/usuarios-listado.module').then((m) => m.UsuariosListadoModule),
+    data: { animation: 'sign-in' },
+  },
+  {
     path: 'catalogo',
     loadChildren: () =>
       import('./catalogo/pages/catalogo-main/catalog-main.module').then(
