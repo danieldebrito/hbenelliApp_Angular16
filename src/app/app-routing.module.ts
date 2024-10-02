@@ -30,7 +30,7 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () =>
-      import('./auth/pages/usuarios-listado/usuarios-listado.module').then((m) => m.UsuariosListadoModule),
+      import('./auth/pages/usuarios-abm/usuarios-listado.module').then((m) => m.UsuariosListadoModule),
     data: { animation: 'sign-in' },
   },
   {
@@ -73,7 +73,7 @@ const routes: Routes = [
       import('./auth/pages/sign-up/sign-up.module').then((m) => m.SignUpModule),
   },
   { path: 'createadmin', loadChildren: () => import('./auth/pages/create-admin/create-admin.module').then(m => m.CreateAdminModule) },
-  { path: 'usuarioslistado', loadChildren: () => import('./auth/pages/usuarios-listado/usuarios-listado.module').then(m => m.UsuariosListadoModule) },
+  { path: 'usuarioslistado', loadChildren: () => import('./auth/pages/usuarios-abm/usuarios-listado.module').then(m => m.UsuariosListadoModule) },
 
   // { path: '**', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) }
 ];

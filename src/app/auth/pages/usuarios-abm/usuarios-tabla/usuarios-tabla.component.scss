@@ -163,3 +163,24 @@ a {
     background: inherit;
     left: 20px;
 }
+
+
+.table th {
+  text-align: center; /* Center header text */
+}
+
+.table td {
+  vertical-align: middle; /* Vertically center content in cells */
+}
+
+.table .badge,
+.table button { /* Center badges and buttons horizontally */
+  text-align: center;
+}
+
+/* Optional: Truncate overflowing text with ellipsis */
+.table td.long-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

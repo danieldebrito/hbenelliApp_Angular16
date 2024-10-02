@@ -15,7 +15,6 @@
         <tr *ngFor="let admin of usuarios | paginate: { itemsPerPage: 30, currentPage: x }">
           <!-- Columna Administrador (UID y DisplayName) -->
           <td>
-            <b>ID:</b> {{ admin.uid }}
             <br> <b>Nombre:</b> {{ admin.displayName }}
           </td>
 
@@ -42,15 +41,18 @@
           </td>
 
           <!-- Columna Acciones -->
+          <!-- Columna Acciones -->
           <td>
             <div [ngSwitch]="admin.habilitado">
               <div *ngSwitchCase="false">
                 <mat-slide-toggle (click)="update(admin, true)">
+                  <i class="fa-solid fa fa-toggle-off"></i>
                   <span class="badge bg-danger">Deshabilitado</span>
                 </mat-slide-toggle>
               </div>
               <div *ngSwitchCase="true">
                 <mat-slide-toggle checked="checked" color="red" (click)="update(admin, false)">
+                  <i class="fa-solid fa fa-toggle-on"></i>
                   <span class="badge bg-success">Habilitado</span>
                 </mat-slide-toggle>
               </div>
@@ -63,6 +65,7 @@
               <i class="fa fa-trash"></i>
             </button>
           </td>
+
         </tr>
       </tbody>
     </table>
