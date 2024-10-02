@@ -28,7 +28,7 @@ const routes: Routes = [
     data: { animation: 'sign-in' },
   },
   {
-    path: 'usuarios',
+    path: 'admin',
     loadChildren: () =>
       import('./auth/pages/usuarios-listado/usuarios-listado.module').then((m) => m.UsuariosListadoModule),
     data: { animation: 'sign-in' },
