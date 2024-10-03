@@ -18,6 +18,8 @@ export class CatalogoAdminComponent implements OnInit {
   ngOnInit(): void {
     this.loadArticulos();
     this.loadSubrubros();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
   }
 
   loadArticulos() {
@@ -31,4 +33,6 @@ export class CatalogoAdminComponent implements OnInit {
       this.subrubros = data;
     });
   }
+
+
 }

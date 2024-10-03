@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ContactoFireService } from '../services/firebase/contacto.service';
 
@@ -7,7 +7,7 @@ import { ContactoFireService } from '../services/firebase/contacto.service';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
   contactForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -37,4 +37,10 @@ export class ContactComponent {
       this.errorMessage = 'Por favor, completa todos los campos correctamente.';
     }
   }
+
+  ngOnInit(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  }
+  
 }

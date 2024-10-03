@@ -72,5 +72,6 @@ export class CatalogMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.getArticulos();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
