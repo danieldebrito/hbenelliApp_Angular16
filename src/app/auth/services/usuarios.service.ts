@@ -81,9 +81,9 @@ export class UsuariosService {
     return observable;
   }
 
-  public update(id: string, Item: any) {
+  public update(Item: any) {
     const col = collection(this.firestore, 'usuarios');
-    const documento = doc(col, id);
+    const documento = doc(col, Item.uid);
 
     updateDoc(documento, Item);
   }
