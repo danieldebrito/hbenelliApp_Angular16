@@ -49,38 +49,32 @@
                 <!-- Si el estado es Inactive -->
                 <div *ngSwitchCase="EStatus.INACTIVE">
                   <mat-slide-toggle (click)="update(admin, EStatus.ACTIVE)">
-                    <i class="fa-solid fa fa-toggle-off"></i>
+                    <i class="fa-solid fa fa-toggle-off text-danger">&nbsp;<span class="status-text">Inhabilitado</span></i>
                   </mat-slide-toggle>
                 </div>
-
+          
                 <!-- Si el estado es Active -->
                 <div *ngSwitchCase="EStatus.ACTIVE">
                   <mat-slide-toggle checked="checked" (click)="update(admin, EStatus.INACTIVE)">
-                    <i class="fa-solid fa fa-toggle-on"></i>
+                    <i class="fa-solid fa fa-toggle-on text-success">&nbsp;<span class="status-text">Habilitado</span></i>
                   </mat-slide-toggle>
                 </div>
-
-                <!-- Si el estado es Suspended -->
-                <div *ngSwitchCase="EStatus.SUSPENDED">
-                  <mat-slide-toggle (click)="update(admin, EStatus.ACTIVE)">
-                    <i class="fa-solid fa fa-toggle-off"></i>
-                  </mat-slide-toggle>
-                </div>
-
+          
                 <!-- Si el estado es Pending -->
                 <div *ngSwitchCase="EStatus.PENDING">
                   <mat-slide-toggle (click)="update(admin, EStatus.ACTIVE)">
-                    <i class="fa-solid fa fa-toggle-off"></i>
+                    <i class="fa-solid fa fa-toggle-off text-warning">&nbsp;<span class="status-text">Pendiente de Activación</span></i>
                   </mat-slide-toggle>
                 </div>
               </div>
-
+          
               <!-- Botón para eliminar usuario -->
               <button type="button" class="btn btn-danger btn-sm" (click)="deleteAdmin(admin)">
                 <i class="fa fa-trash"></i>
               </button>
             </div>
           </td>
+          
         </tr>
       </tbody>
     </table>

@@ -161,3 +161,42 @@
   background: inherit;
   left: 20px;
 }
+
+/* Ajustar el formato de los textos de estado */
+.status-text {
+  font-size: 0.9rem; /* Tamaño de la fuente del texto de estado */
+  font-weight: 500;  /* Poner un poco de grosor en el texto */
+}
+
+.text-danger {
+  color: #dc3545 !important; /* Color rojo para estado Inhabilitado */
+}
+
+.text-success {
+  color: #28a745 !important; /* Color verde para estado Habilitado */
+}
+
+.text-warning {
+  color: #ffc107 !important; /* Color amarillo para estado Pendiente */
+}
+
+/* Opcional: Ajustes generales */
+.mat-slide-toggle {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0;
+  margin-right: 10px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.me-3 {
+  margin-right: 1rem;
+}
+
