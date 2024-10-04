@@ -1,5 +1,4 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../models/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
@@ -10,9 +9,11 @@ import { Observable, Subject, of, throwError } from 'rxjs';
 import { UserLog } from '../class/userLog';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { LogUserService } from './log-user.service';
-import { ERole, Usuario } from '../class/usuario';
+import { Usuario } from '../class/usuario';
 import { UsuariosService } from './usuarios.service';
 import Swal from 'sweetalert2';
+import { ERole, User } from '../class/user';
+
 
 @Injectable({
   providedIn: 'root',
@@ -222,33 +223,7 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
     );
   }
 
-  // Método para verificar si el usuario actual es un paciente
-  isPaciente(): Observable<boolean> {
-    return this.afAuth.authState.pipe(
-      switchMap((user) => {
-        if (user) {
-          // Obtener el documento del usuario desde la colección 'usuarios'
-          return this.afsA.doc(`usuarios/${user.uid}`).valueChanges();
-        }
-        return [];
-      }),
-      map((usuario: any) => {
-        if (usuario) {
-          return (
-            usuario.emailVerified &&
-            usuario.habilitado &&
-            (usuario.role === ERole.paciente ||
-              usuario.role === ERole.administrador)
-          );
-        }
-        return false;
-      }),
-      catchError((error) => {
-        console.error('Error al verificar si es paciente:', error);
-        return throwError(() => error);
-      })
-    );
-  }
+
 
   // Método para verificar si el usuario actual es un admin
   isAdmin(): Observable<boolean> {
@@ -263,7 +238,7 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
       map((usuario: any) => {
         if (usuario) {
           //console.log(usuario.role == ERole.administrador);
-          return /*usuario.emailVerified  && usuario.habilitado &&*/ usuario.role == ERole.administrador;
+          return /*usuario.emailVerified  && usuario.habilitado &&*/ usuario.role == ERole.ADMIN;
         }
         return false;
       }),
@@ -274,32 +249,4 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
     );
   }
 
-  // Método para verificar si el usuario actual es un admin
-  isEspecialista(): Observable<boolean> {
-    return this.afAuth.authState.pipe(
-      switchMap((user) => {
-        if (user) {
-          // Obtener el documento del usuario desde la colección 'usuarios'
-          return this.afsA.doc(`usuarios/${user.uid}`).valueChanges();
-        }
-        return [];
-      }),
-      map((usuario: any) => {
-        if (usuario) {
-          return (
-            usuario.habilitado &&
-            usuario.emailVerified &&
-            usuario.habilitado &&
-            (usuario.role === ERole.especialista ||
-              usuario.role === ERole.administrador)
-          );
-        }
-        return false;
-      }),
-      catchError((error) => {
-        console.error('Error al verificar si es admin:', error);
-        return throwError(() => error);
-      })
-    );
-  }
 }

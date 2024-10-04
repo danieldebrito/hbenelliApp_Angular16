@@ -20,8 +20,7 @@ export class SignUpComponent implements OnInit {
   public createForm: FormGroup;
 
   constructor(
-    private authService: AuthService,
-    private usuariosService: UsuariosService) {
+    private authService: AuthService) {
     this.createForm = this.buildForm();
   }
 

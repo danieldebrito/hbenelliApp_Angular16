@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../../auth/services/auth.service';
-import { UsuariosService } from '../../../auth/services/usuarios.service';
-import { Usuario, ERole } from '../../../auth/class/usuario';
 import Swal from 'sweetalert2';
+import { ERole, User } from '../../class/user';
 
 @Component({
   selector: 'app-create-admin',
@@ -13,11 +12,10 @@ import Swal from 'sweetalert2';
 export class CreateAdminComponent {
 
   public createForm: FormGroup;
-  public role: ERole = ERole.administrador;
+  public role: ERole = ERole.ADMIN;
 
   constructor(
-    private authService: AuthService,
-    private usuariosService: UsuariosService) {
+    private authService: AuthService) {
     this.createForm = this.buildForm();
   }
 
@@ -33,7 +31,7 @@ export class CreateAdminComponent {
   // Método para crear el usuario
   public async createUser(): Promise<void> {
     if (this.createForm.valid) {
-      const newUser: Usuario = {
+      const newUser: User = {
         ...this.createForm.value,
         role: this.role,
         habilitado: false,
