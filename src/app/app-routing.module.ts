@@ -9,6 +9,7 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
+  ///////// auth /////////////////////////////////////////////////////////////////
   {
     path: 'login',
     loadChildren: () =>
@@ -24,15 +25,47 @@ const routes: Routes = [
   {
     path: 'createadmin',
     loadChildren: () =>
-      import('./auth/pages/create-admin/create-admin.module').then((m) => m.CreateAdminModule),
-    data: { animation: 'sign-in' },
+      import('./auth/pages/create-admin/create-admin.module').then(
+        (m) => m.CreateAdminModule
+      ),
+      canActivate: [AdminGuard],
+      data: { animation: 'sign-in' },
   },
+  /////// admin ///////////////////////////////////////////////////////////////////////
   {
     path: 'admin',
     loadChildren: () =>
-      import('./auth/pages/usuarios-abm/usuarios-listado.module').then((m) => m.UsuariosListadoModule),
+      import('./auth/pages/usuarios-abm/usuarios-listado.module').then(
+        (m) => m.UsuariosListadoModule
+      ),
+    canActivate: [AdminGuard],
     data: { animation: 'sign-in' },
   },
+  {
+    path: 'catalogoadmin',
+    loadChildren: () =>
+      import('./catalogo/pages/catalogo-admin/catalogo-admin.module').then(
+        (m) => m.CatalogoAdminModule
+      ),
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./admin/pages/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'usuarioslistado',
+    loadChildren: () =>
+      import('./auth/pages/usuarios-abm/usuarios-listado.module').then(
+        (m) => m.UsuariosListadoModule
+      ),
+      canActivate: [AdminGuard],
+  },
+  ////////////// page /////////////////////////////////////////////////////////////////
   {
     path: 'catalogo',
     loadChildren: () =>
@@ -51,29 +84,12 @@ const routes: Routes = [
       import('./contacto/contact.module').then((m) => m.ContactModule),
   },
   {
-    path: 'dashboard',
+    path: 'accessdenied',
     loadChildren: () =>
-      import('./admin/pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
+      import('./auth/pages/access-denied/access-denied.module').then(
+        (m) => m.AccessDeniedModule
       ),
   },
-  {
-    path: 'catalogoadmin',
-    loadChildren: () => import('./catalogo/pages/catalogo-admin/catalogo-admin.module').then(m => m.CatalogoAdminModule),
-    canActivate: [AdminGuard]
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () => import('./admin/pages/dashboard/dashboard.module').then(m => m.DashboardModule),
-    canActivate: [AdminGuard]
-  },
-  {
-    path: 'sign-up',
-    loadChildren: () =>
-      import('./auth/pages/sign-up/sign-up.module').then((m) => m.SignUpModule),
-  },
-  { path: 'createadmin', loadChildren: () => import('./auth/pages/create-admin/create-admin.module').then(m => m.CreateAdminModule) },
-  { path: 'usuarioslistado', loadChildren: () => import('./auth/pages/usuarios-abm/usuarios-listado.module').then(m => m.UsuariosListadoModule) },
 
   // { path: '**', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) }
 ];

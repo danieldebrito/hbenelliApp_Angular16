@@ -16,7 +16,7 @@
         <li class="nav-item" *ngIf="!isAdmin">
           <a class="nav-link" routerLink="/catalogo">Catálogo</a>
         </li>
-        <li class="nav-item" *ngIf="isAdmin">
+        <li class="nav-item" *ngIf="currentUser && currentUser.displayName">
           <a class="nav-link" routerLink="/catalogoadmin">CatálogoEdit</a>
         </li>
         <li class="nav-item" *ngIf="isAdmin">
@@ -30,17 +30,20 @@
         </li>
       </ul>
       <!-- Mostrar nombre y logout solo si el usuario está logueado -->
-      <ul class="navbar-nav ms-auto" *ngIf="currentUser !== null">
+      <ul class="navbar-nav ms-auto" *ngIf="currentUser && currentUser.displayName">
         <li class="nav-item">
-          <a class="nav-link">Hola, {{ currentUser?.nombre }}</a>
+          <a class="nav-link">Hola, {{ currentUser?.displayName }}</a>
         </li>
         <li class="nav-item">
-          <button class="btn btn-link nav-link" (click)="logout()" [disabled]="isLoggingOut">
-            Logout
-            <span *ngIf="isLoggingOut" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <button class="btn btn-outline-danger" (click)="logout()" [disabled]="isLoggingOut">
+            <!-- Muestra "Salir" si no está deslogueando -->
+            <span *ngIf="!isLoggingOut">Salir</span>
+            <!-- Mostrar indicador de carga -->
+            <span *ngIf="isLoggingOut">Cargando...</span>
           </button>
         </li>
       </ul>
+         
     </div>
   </div>
 </nav>
