@@ -66,13 +66,58 @@ export class CatalogFormComponent implements OnInit {
     if (event.target.files.length > 0) {
       this.imageFile = event.target.files[0];
       const reader = new FileReader();
+      
       reader.readAsDataURL(this.imageFile);
-      reader.onload = () => {
-        this.imageUrl = reader.result as string;
-        this.articuloForm.get('urlPhoto')?.setValue(this.imageFile); // Update form control value
+      reader.onload = (e: any) => {
+        const img = new Image();
+        img.src = e.target.result;
+  
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          // Definir el nuevo tamaño de la imagen (por ejemplo, 810x546)
+          const MAX_WIDTH = 810;
+          const MAX_HEIGHT = 546;
+  
+          // Obtener las dimensiones originales de la imagen
+          const originalWidth = img.width;
+          const originalHeight = img.height;
+  
+          // Calcular las nuevas dimensiones manteniendo la relación de aspecto
+          let newWidth = originalWidth;
+          let newHeight = originalHeight;
+  
+          if (originalWidth > MAX_WIDTH || originalHeight > MAX_HEIGHT) {
+            const aspectRatio = originalWidth / originalHeight;
+  
+            if (originalWidth > originalHeight) {
+              newWidth = MAX_WIDTH;
+              newHeight = MAX_WIDTH / aspectRatio;
+            } else {
+              newHeight = MAX_HEIGHT;
+              newWidth = MAX_HEIGHT * aspectRatio;
+            }
+          }
+  
+          // Ajustar el tamaño del canvas y redibujar la imagen
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+          ctx?.drawImage(img, 0, 0, newWidth, newHeight);
+  
+          // Convertir el canvas a Blob (archivo de imagen)
+          canvas.toBlob((blob) => {
+            if (blob) {
+              this.imageFile = new File([blob], this.imageFile!.name, { type: this.imageFile!.type });
+              this.imageUrl = URL.createObjectURL(this.imageFile); // Mostrar la imagen redimensionada
+              this.articuloForm.get('urlPhoto')?.setValue(this.imageFile); // Actualizar el valor del formulario
+            }
+          }, this.imageFile!.type);
+        };
       };
     }
   }
+  
 
   async submitForm() {
     if (this.articuloForm.valid) {

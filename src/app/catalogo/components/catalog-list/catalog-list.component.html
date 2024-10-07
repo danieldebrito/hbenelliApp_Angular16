@@ -3,6 +3,11 @@
     <h2>Lista de Artículos</h2>
     <button (click)="exportToExcel()">Exportar a Excel</button>
     <button (click)="navigateToAdd()">Agregar Nuevo Artículo</button>
+    <div class="pagination-controls">
+      <button (click)="p = p - 1" [disabled]="p === 1">Anterior</button>
+      <span>Página {{ p }}</span>
+      <button (click)="p = p + 1" [disabled]="p * itemsPerPage >= articulos.length">Siguiente</button>
+    </div>
   </div>
   <div class="catalog-content">
     <ul>
