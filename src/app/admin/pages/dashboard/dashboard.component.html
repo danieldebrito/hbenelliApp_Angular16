@@ -1,1 +1,26 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <h2>Panel de Administración</h2>
+        <nav>
+            <ul>
+                <li>
+                    <a routerLink="/admin" routerLinkActive="active">Dashboard</a>
+                </li>
+                <li>
+                    <a routerLink="/admin/usuarioslistado" routerLinkActive="active">
+                        Gestión de Usuarios
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/admin/catalogoadmin" routerLinkActive="active">
+                        Gestión de Catálogo
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

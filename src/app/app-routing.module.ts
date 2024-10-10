@@ -35,25 +35,16 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () =>
-      import('./auth/pages/usuarios-abm/usuarios-listado.module').then(
-        (m) => m.UsuariosListadoModule
+      import('./admin/pages/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
       ),
     canActivate: [AdminGuard],
-    data: { animation: 'sign-in' },
   },
   {
     path: 'catalogoadmin',
     loadChildren: () =>
       import('./catalogo/pages/catalogo-admin/catalogo-admin.module').then(
         (m) => m.CatalogoAdminModule
-      ),
-    canActivate: [AdminGuard],
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./admin/pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
       ),
     canActivate: [AdminGuard],
   },
