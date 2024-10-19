@@ -16,17 +16,15 @@
         <li class="nav-item" *ngIf="!isAdmin">
           <a class="nav-link" routerLink="/catalogo">Catálogo</a>
         </li>
-        <li class="nav-item" *ngIf="currentUser && currentUser.displayName">
-          <a class="nav-link" routerLink="/catalogoadmin">CatálogoEdit</a>
-        </li>
-        <li class="nav-item" *ngIf="isAdmin">
-          <a class="nav-link" routerLink="/dashboard">Dashboard</a>
-        </li>
-        <li class="nav-item" *ngIf="!isAdmin">
+
+        <li class="nav-item" *ngIf="!isAdmin && !(currentUser && currentUser.displayName)">
           <a class="nav-link" routerLink="/nosotros">Nosotros</a>
         </li>
-        <li class="nav-item" *ngIf="!isAdmin">
+        <li class="nav-item" *ngIf="!isAdmin && !(currentUser && currentUser.displayName)">
           <a class="nav-link" routerLink="/contacto">Contacto</a>
+        </li>
+        <li class="nav-item" *ngIf="currentUser && currentUser.displayName">
+          <a class="nav-link" routerLink="/admin">Admin</a>
         </li>
       </ul>
       <!-- Mostrar nombre y logout solo si el usuario está logueado -->
@@ -36,8 +34,8 @@
         </li>
         <li class="nav-item">
           <button class="btn btn-outline-danger" (click)="logout()" [disabled]="isLoggingOut">
-            <!-- Muestra "Salir" si no está deslogueando -->
-            <span *ngIf="!isLoggingOut">Salir</span>
+            <!-- Muestra el icono si no está deslogueando -->
+            <fa-icon *ngIf="!isLoggingOut" [icon]="faSignOutAlt"></fa-icon>
             <!-- Mostrar indicador de carga -->
             <span *ngIf="isLoggingOut">Cargando...</span>
           </button>

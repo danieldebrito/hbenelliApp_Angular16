@@ -36,21 +36,29 @@ export class CatalogMainComponent implements OnInit {
   }
 
   filtrar(event: Busqueda) {
-
     this.busqueda = event;
     console.log(event);
-
+  
+    // Copiamos la lista completa de artículos
     let filteredArticulos = [...this.articulos];
+  
+    // Filtramos por rubro si está especificado
     if (event.rubro !== '') {
-      filteredArticulos = [...filteredArticulos.filter(art => art.rubro === event.rubro)];
+      filteredArticulos = filteredArticulos.filter(art => art.rubro === event.rubro);
     }
+  
+    // Filtramos por subrubro si está especificado
     if (event.subrubro !== '') {
       filteredArticulos = filteredArticulos.filter(art => art.subrubro === event.subrubro);
     }
-
-    this.filterArticulos = filteredArticulos;
-    this.getRurbrosSubrubros(this.filterArticulos)
+  
+    // Ordenar los artículos filtrados por rubro, subrubro y nombre
+    this.filterArticulos = this.articulosSv.ordenarArticulos(filteredArticulos);
+  
+    // Llamar a getRurbrosSubrubros pasando los artículos ya filtrados y ordenados
+    this.getRurbrosSubrubros(this.filterArticulos);
   }
+  
 
   public getInicialArticulos(){
 
