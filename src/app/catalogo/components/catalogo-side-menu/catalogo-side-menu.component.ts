@@ -13,6 +13,7 @@ export class CatalogoSideMenuComponent {
 
   @Output() busquedaSeleccionada = new EventEmitter();
   @Output() busquedaLimpiar = new EventEmitter();
+  @Output() searchTermthrow = new EventEmitter();
 
   @Input() subrubros: String[] = [];
   @Input() rubros: String[] = [];
@@ -24,6 +25,7 @@ export class CatalogoSideMenuComponent {
   public busqueda: Busqueda = {
     rubro: "textil",
     subrubro: "",
+    searchTerm: '',
   }
 
   constructor(
@@ -46,6 +48,7 @@ export class CatalogoSideMenuComponent {
       Validators.minLength(2),
       Validators.maxLength(40),
     ]),
+    searchTerm: new FormControl('', Validators.required)
   });
 
   public reset() {
@@ -53,8 +56,9 @@ export class CatalogoSideMenuComponent {
     this.busqueda.subrubro = "";
 
     this.altaForm.setValue({
-      rubro: "",
-      subrubro: ""
+      rubro: '',
+      subrubro: '',
+      searchTerm: ''
     });
     this.busquedaSeleccionada.emit(this.busqueda);
   }
@@ -72,5 +76,10 @@ export class CatalogoSideMenuComponent {
     console.log(this.articulos);
     
     this.busquedaSeleccionada.emit(this.busqueda);
+  }
+
+
+  public filterArticulos() {
+    this.searchTermthrow.emit(this.altaForm.getRawValue().searchTerm);
   }
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CatalogCardsGridComponent } from './catalog-cards-grid/catalog-cards-grid.component';
 import { CatalogoSideMenuComponent } from './catalogo-side-menu/catalogo-side-menu.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CardComponent } from './card/card.component';
 import { CatalogListComponent } from './catalog-list/catalog-list.component';
@@ -25,7 +25,9 @@ import { CatalogFormComponent } from './catalog-form/catalog-form.component';
     CommonModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    RouterModule
+    RouterModule,
+    FormsModule
+
   ],
   exports: [
     CatalogCardsGridComponent,

@@ -1,14 +1,27 @@
 <div class="catalog-container">
   <div class="catalog-header">
     <h2>Lista de Artículos</h2>
+
+    <!-- Botones de Exportar y Agregar -->
     <button (click)="exportToExcel()">Exportar a Excel</button>
     <button (click)="navigateToAdd()">Agregar Nuevo Artículo</button>
-    <div class="pagination-controls">
+
+    <!-- Controles de paginación -->
+    <div class="pagination-controls mt-2">
       <button (click)="p = p - 1" [disabled]="p === 1">Anterior</button>
       <span>Página {{ p }}</span>
-      <button (click)="p = p + 1" [disabled]="p * itemsPerPage >= articulos.length">Siguiente</button>
+      <button (click)="p = p + 1" [disabled]="p * itemsPerPage >= filteredArticulos.length">Siguiente</button>
     </div>
   </div>
+
+  <div class="catalog-header">
+    <!-- Campo de búsqueda -->
+    <div class="input-group mt-2">
+      <input type="text" class="form-control" placeholder="Buscar por nombre, código, rubro u observaciones"
+        [(ngModel)]="searchTerm" (input)="filterArticulos()" />
+    </div>
+  </div>
+
   <div class="catalog-content">
     <ul>
       <li *ngFor="let articulo of paginatedArticulos; let i = index">
@@ -40,9 +53,10 @@
       </li>
     </ul>
   </div>
+
   <div class="pagination-controls">
     <button (click)="p = p - 1" [disabled]="p === 1">Anterior</button>
     <span>Página {{ p }}</span>
-    <button (click)="p = p + 1" [disabled]="p * itemsPerPage >= articulos.length">Siguiente</button>
+    <button (click)="p = p + 1" [disabled]="p * itemsPerPage >= filteredArticulos.length">Siguiente</button>
   </div>
 </div>

@@ -11,20 +11,25 @@ import { SubrubrosService } from 'src/app/services/subrubros.service';
 })
 export class CatalogoAdminComponent implements OnInit {
   articulos: Articulo[] = [];
+  filteredArticulos: Articulo[] = []; // Lista de artículos filtrados
   subrubros: Subrubro[] = [];
+  isListView: boolean = true; // Controla el modo de vista: lista o cards
 
-  constructor(private articulosService: ArticulosService, private subrubrosService: SubrubrosService) {}
+  constructor(
+    private articulosService: ArticulosService,
+    private subrubrosService: SubrubrosService
+  ) {}
 
   ngOnInit(): void {
     this.loadArticulos();
     this.loadSubrubros();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
   }
 
   loadArticulos() {
     this.articulosService.gets().subscribe((data) => {
       this.articulos = data;
+      this.filteredArticulos = this.articulos; // Inicialmente, sin filtro
     });
   }
 
@@ -35,4 +40,9 @@ export class CatalogoAdminComponent implements OnInit {
   }
 
 
+
+  // Cambia el modo de vista
+  toggleViewMode() {
+    this.isListView = !this.isListView;
+  }
 }

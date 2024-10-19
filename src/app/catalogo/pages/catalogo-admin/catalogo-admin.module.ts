@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { CatalogoAdminRoutingModule } from './catalogo-admin-routing.module';
 import { CatalogoAdminComponent } from './catalogo-admin.component';
 import { ComponentsModule } from '../../components/components.module';
@@ -12,7 +12,8 @@ import { ComponentsModule } from '../../components/components.module';
   imports: [
     CommonModule,
     CatalogoAdminRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    FormsModule
   ]
 })
 export class CatalogoAdminModule { }

@@ -15,7 +15,9 @@ export class CatalogListComponent implements OnInit {
   p = 1;
   itemsPerPage = 15;
   articulos: Articulo[] = [];
+  filteredArticulos: Articulo[] = []; // Artículos filtrados
   subrubros: Subrubro[] = [];
+  searchTerm: string = ''; // Término de búsqueda
 
   constructor(
     private articulosService: ArticulosService,
@@ -31,6 +33,7 @@ export class CatalogListComponent implements OnInit {
   loadArticulos() {
     this.articulosService.gets().subscribe((data) => {
       this.articulos = data;
+      this.filteredArticulos = this.articulos; // Inicialmente, sin filtro
     });
   }
 
@@ -52,9 +55,20 @@ export class CatalogListComponent implements OnInit {
     XLSX.writeFile(wb, 'articulos.xlsx');
   }
 
+  // Filtra los artículos según el término de búsqueda
+  filterArticulos() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredArticulos = this.articulos.filter(articulo =>
+      articulo.nombre?.toLowerCase().includes(term) ||
+      articulo.codigo?.toLowerCase().includes(term) ||
+      articulo.rubro?.toLowerCase().includes(term) ||
+      articulo.observaciones?.toLowerCase().includes(term)
+    );
+  }
+
   get paginatedArticulos(): Articulo[] {
     const startIndex = (this.p - 1) * this.itemsPerPage;
-    return this.articulos.slice(startIndex, startIndex + this.itemsPerPage);
+    return this.filteredArticulos.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   navigateToAdd() {
