@@ -1,5 +1,5 @@
 export interface Busqueda {
     rubro?: string | null,
-    subrubro?: string | null,
+    categoria?: string | null,
     searchTerm?: string | null,
   }

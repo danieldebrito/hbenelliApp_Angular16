@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/app/class/articulo';
-import { Subrubro } from 'src/app/class/subrubro';
+import { categoria } from 'src/app/class/categoria';
 import { ArticulosService } from 'src/app/services/articulos.service';
-import { SubrubrosService } from 'src/app/services/subrubros.service';
+import { categoriasService } from 'src/app/services/categorias.service';
 
 @Component({
   selector: 'app-catalogo-admin',
@@ -12,17 +12,17 @@ import { SubrubrosService } from 'src/app/services/subrubros.service';
 export class CatalogoAdminComponent implements OnInit {
   articulos: Articulo[] = [];
   filteredArticulos: Articulo[] = []; // Lista de artículos filtrados
-  subrubros: Subrubro[] = [];
+  categorias: categoria[] = [];
   isListView: boolean = true; // Controla el modo de vista: lista o cards
 
   constructor(
     private articulosService: ArticulosService,
-    private subrubrosService: SubrubrosService
+    private categoriasService: categoriasService
   ) {}
 
   ngOnInit(): void {
     this.loadArticulos();
-    this.loadSubrubros();
+    this.loadcategorias();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -33,9 +33,9 @@ export class CatalogoAdminComponent implements OnInit {
     });
   }
 
-  loadSubrubros() {
-    this.subrubrosService.getAll().subscribe((data) => {
-      this.subrubros = data;
+  loadcategorias() {
+    this.categoriasService.getAll().subscribe((data) => {
+      this.categorias = data;
     });
   }
 

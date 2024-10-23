@@ -37,7 +37,7 @@ export class CatalogFormComponent implements OnInit {
         [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],
       ],
       rubro: ['', Validators.required],
-      subrubro: ['', Validators.required],
+      categoria: ['', Validators.required],
       observaciones: [''],
       urlPhoto: ['', Validators.required],
     });

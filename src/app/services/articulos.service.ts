@@ -64,11 +64,11 @@ export class ArticulosService {
         }
       }
   
-      // Comparar por subrubro
-      if (a.subrubro && b.subrubro) {
-        const subrubroComparison = a.subrubro.localeCompare(b.subrubro);
-        if (subrubroComparison !== 0) {
-          return subrubroComparison;
+      // Comparar por categoria
+      if (a.categoria && b.categoria) {
+        const categoriaComparison = a.categoria.localeCompare(b.categoria);
+        if (categoriaComparison !== 0) {
+          return categoriaComparison;
         }
       }
   
@@ -77,7 +77,7 @@ export class ArticulosService {
         return a.nombre.localeCompare(b.nombre);
       }
   
-      return 0; // Si no hay diferencias en rubro, subrubro y nombre, son iguales
+      return 0; // Si no hay diferencias en rubro, categoria y nombre, son iguales
     });
   }
 

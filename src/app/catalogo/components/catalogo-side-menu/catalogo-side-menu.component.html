@@ -12,9 +12,9 @@
         </div>
 
         <div class="p-2">
-          <select (change)="filtraSubRubro()" class="form-select" aria-label="Default select example" formControlName="subrubro">
-            <option value="" disabled selected hidden>Filtrar por Subrubro</option>
-            <option *ngFor="let item of subrubros" value="{{ item }}" >
+          <select (change)="filtracategoria()" class="form-select" aria-label="Default select example" formControlName="categoria">
+            <option value="" disabled selected hidden>Filtrar por categoria</option>
+            <option *ngFor="let item of categorias" value="{{ item }}" >
               {{ item}}
             </option>
           </select>

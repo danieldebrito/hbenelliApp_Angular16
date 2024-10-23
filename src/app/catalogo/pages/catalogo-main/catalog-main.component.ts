@@ -12,7 +12,7 @@ export class CatalogMainComponent implements OnInit {
   public articulos: Articulo[] = [];
   public filteredArticulos: Articulo[] = [];
 
-  public subrubros: String[] = [];
+  public categorias: String[] = [];
   public rubros: String[] = [];
 
   public busqueda: Busqueda = {};
@@ -23,7 +23,7 @@ export class CatalogMainComponent implements OnInit {
     this.articulosSv.gets().subscribe((data) => {
       this.articulos = data;
 
-      this.getRurbrosSubrubros(this.filteredArticulos);
+      this.getRurbroscategorias(this.filteredArticulos);
       this.getInicialArticulos();
 
       console.log(this.articulos);
@@ -44,41 +44,41 @@ export class CatalogMainComponent implements OnInit {
       );
     }
 
-    // Filtramos por subrubro si está especificado
-    if (event.subrubro !== '') {
+    // Filtramos por categoria si está especificado
+    if (event.categoria !== '') {
       filteredArticulos = filteredArticulos.filter(
-        (art) => art.subrubro === event.subrubro
+        (art) => art.categoria === event.categoria
       );
     }
 
-    // Ordenar los artículos filtrados por rubro, subrubro y nombre
+    // Ordenar los artículos filtrados por rubro, categoria y nombre
     this.filteredArticulos =
       this.articulosSv.ordenarArticulos(filteredArticulos);
 
-    // Llamar a getRurbrosSubrubros pasando los artículos ya filtrados y ordenados
-    this.getRurbrosSubrubros(this.filteredArticulos);
+    // Llamar a getRurbroscategorias pasando los artículos ya filtrados y ordenados
+    this.getRurbroscategorias(this.filteredArticulos);
   }
 
   public getInicialArticulos() {
     let busqueda: Busqueda = {
       rubro: 'textil',
-      subrubro: '',
+      categoria: '',
     };
 
     this.filtrar(busqueda);
 
-    this.getRurbrosSubrubros(this.articulos);
+    this.getRurbroscategorias(this.articulos);
   }
 
-  public getRurbrosSubrubros(filteredArticulos: Articulo[]) {
+  public getRurbroscategorias(filteredArticulos: Articulo[]) {
     this.rubros = [...new Set(this.articulos.map((x) => x.rubro || ''))].filter(
       (r) => r != ''
     ) as String[];
-    this.subrubros = [
+    this.categorias = [
       ...new Set(
         this.articulos
           .filter((x) => x.rubro == this.busqueda.rubro || '')
-          .map((sr) => sr.subrubro)
+          .map((sr) => sr.categoria)
       ),
     ] as String[];
   }
@@ -94,7 +94,7 @@ export class CatalogMainComponent implements OnInit {
     this.filteredArticulos = this.articulos.filter(
       (articulo) =>
         articulo.rubro?.toLowerCase().includes(term) ||
-        articulo.subrubro?.toLowerCase().includes(term) ||
+        articulo.categoria?.toLowerCase().includes(term) ||
         articulo.nombre?.toLowerCase().includes(term) ||
         articulo.codigo?.toLowerCase().includes(term) ||
         articulo.observaciones?.toLowerCase().includes(term)

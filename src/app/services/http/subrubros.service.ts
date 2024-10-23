@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Subrubro } from 'src/app/class/subrubro';
+import { categoria } from 'src/app/class/categoria';
 import { BaseService } from './_base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubrubrosService {
-  private baseUrl = 'subrubros';
+export class categoriasService {
+  private baseUrl = 'categorias';
 
   constructor(private baseService: BaseService) { }
 
   // GET all
-  getAll(): Observable<Subrubro[]> {
+  getAll(): Observable<categoria[]> {
     return this.baseService.get(this.baseUrl).pipe(
-      map((data: Object) => data as Subrubro[])
+      map((data: Object) => data as categoria[])
     );
   }
 

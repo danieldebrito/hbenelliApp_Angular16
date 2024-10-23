@@ -3,7 +3,7 @@ export class Articulo {
   constructor(
     public id?: string,
     public rubro?: string,
-    public subrubro?: string,
+    public categoria?: string,
     public idDetalle?: number,
     public codigo?: string,
     public nombre?: string,

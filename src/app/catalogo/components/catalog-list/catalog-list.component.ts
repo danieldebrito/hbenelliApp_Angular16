@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/app/class/articulo';
-import { Subrubro } from 'src/app/class/subrubro';
+import { categoria } from 'src/app/class/categoria';
 import { ArticulosService } from 'src/app/services/articulos.service';
-import { SubrubrosService } from 'src/app/services/subrubros.service';
+import { categoriasService } from 'src/app/services/categorias.service';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
 
@@ -16,18 +16,18 @@ export class CatalogListComponent implements OnInit {
   itemsPerPage = 15;
   articulos: Articulo[] = [];
   filteredArticulos: Articulo[] = []; // Artículos filtrados
-  subrubros: Subrubro[] = [];
+  categorias: categoria[] = [];
   searchTerm: string = ''; // Término de búsqueda
 
   constructor(
     private articulosService: ArticulosService,
-    private subrubrosService: SubrubrosService,
+    private categoriasService: categoriasService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadArticulos();
-    this.loadSubrubros();
+    this.loadcategorias();
   }
 
   loadArticulos() {
@@ -37,15 +37,15 @@ export class CatalogListComponent implements OnInit {
     });
   }
 
-  loadSubrubros() {
-    this.subrubrosService.getAll().subscribe((data) => {
-      this.subrubros = data;
+  loadcategorias() {
+    this.categoriasService.getAll().subscribe((data) => {
+      this.categorias = data;
     });
   }
 
-  getSubrubroNombre(subrubroId: number): string {
-    const subrubro = this.subrubros.find(s => s.id === subrubroId);
-    return subrubro ? subrubro.subrubro : 'Desconocido';
+  getcategoriaNombre(categoriaId: number): string {
+    const categoria = this.categorias.find(s => s.id === categoriaId);
+    return categoria ? categoria.categoria : 'Desconocido';
   }
 
   exportToExcel() {

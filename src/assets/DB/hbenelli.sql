@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `articulos` (
   `id` int(5) DEFAULT NULL,
   `rubro` varchar(50) DEFAULT NULL,
-  `subrubro` varchar(50) DEFAULT NULL,
+  `categoria` varchar(50) DEFAULT NULL,
   `idDetalle` int(5) DEFAULT NULL,
   `codigo` varchar(20) DEFAULT NULL,
   `nombre` varchar(100) DEFAULT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `articulos` (
 -- Volcado de datos para la tabla `articulos`
 --
 
-INSERT INTO `articulos` (`id`, `rubro`, `subrubro`, `idDetalle`, `codigo`, `nombre`, `observaciones`, `peso`, `unidad`, `precioLista`, `precioNeto`, `urlPhoto`, `updated_at`, `created_at`) VALUES
+INSERT INTO `articulos` (`id`, `rubro`, `categoria`, `idDetalle`, `codigo`, `nombre`, `observaciones`, `peso`, `unidad`, `precioLista`, `precioNeto`, `urlPhoto`, `updated_at`, `created_at`) VALUES
 (1, 'alimentaria', 'especias', NULL, 'ES-ACHT', 'ACHUETE', NULL, '1.00', 'kg', NULL, NULL, 'assets/img/catalogo/default.jpg', NULL, NULL),
 (2, 'alimentaria', 'especias', NULL, 'ES-AJMO', 'AJI MOLIDO', NULL, '1.00', 'kg', NULL, NULL, 'assets/img/catalogo/default.jpg', NULL, NULL),
 (3, 'alimentaria', 'especias', NULL, 'ES-AJPN', 'AJO EN POLVO', 'Nacional', '1.00', 'kg', NULL, NULL, 'assets/img/catalogo/default.jpg', NULL, NULL),
@@ -732,22 +732,22 @@ INSERT INTO `recetaitems` (`id`, `idIntegral`, `orden`, `detalle`, `updated_at`,
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `subrubros`
+-- Estructura de tabla para la tabla `categorias`
 --
 
-CREATE TABLE `subrubros` (
+CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `rubro` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `subrubro` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `categoria` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `updated_at` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `created_at` varchar(150) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `subrubros`
+-- Volcado de datos para la tabla `categorias`
 --
 
-INSERT INTO `subrubros` (`id`, `rubro`, `subrubro`, `updated_at`, `created_at`) VALUES
+INSERT INTO `categorias` (`id`, `rubro`, `categoria`, `updated_at`, `created_at`) VALUES
 (1, 'alimentaria', 'especias', '', ''),
 (2, 'alimentaria', 'harinas', '', ''),
 (3, 'alimentaria', 'integrales', '', ''),
@@ -788,9 +788,9 @@ ALTER TABLE `recetaitems`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `subrubros`
+-- Indices de la tabla `categorias`
 --
-ALTER TABLE `subrubros`
+ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -822,9 +822,9 @@ ALTER TABLE `recetaitems`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `subrubros`
+-- AUTO_INCREMENT de la tabla `categorias`
 --
-ALTER TABLE `subrubros`
+ALTER TABLE `categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 

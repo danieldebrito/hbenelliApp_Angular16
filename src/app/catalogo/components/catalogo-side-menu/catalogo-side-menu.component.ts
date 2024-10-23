@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Articulo } from 'src/app/class/articulo';
-import { Subrubro } from 'src/app/class/subrubro';
+import { categoria } from 'src/app/class/categoria';
 import { Busqueda } from 'src/app/class/busqueda';
 
 @Component({
@@ -15,7 +15,7 @@ export class CatalogoSideMenuComponent {
   @Output() busquedaLimpiar = new EventEmitter();
   @Output() searchTermthrow = new EventEmitter();
 
-  @Input() subrubros: String[] = [];
+  @Input() categorias: String[] = [];
   @Input() rubros: String[] = [];
 
   @Input() articulos: Articulo[] = [];
@@ -24,7 +24,7 @@ export class CatalogoSideMenuComponent {
 
   public busqueda: Busqueda = {
     rubro: "textil",
-    subrubro: "",
+    categoria: "",
     searchTerm: '',
   }
 
@@ -34,7 +34,7 @@ export class CatalogoSideMenuComponent {
     this.articulo = {};
 
     this.busqueda.rubro = "";
-    this.busqueda.subrubro = "";
+    this.busqueda.categoria = "";
   }
 
   altaForm = new FormGroup({
@@ -43,7 +43,7 @@ export class CatalogoSideMenuComponent {
       Validators.minLength(2),
       Validators.maxLength(40),
     ]),
-    subrubro: new FormControl('', [
+    categoria: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(40),
@@ -53,11 +53,11 @@ export class CatalogoSideMenuComponent {
 
   public reset() {
     this.busqueda.rubro = "textil";
-    this.busqueda.subrubro = "";
+    this.busqueda.categoria = "";
 
     this.altaForm.setValue({
       rubro: '',
-      subrubro: '',
+      categoria: '',
       searchTerm: ''
     });
     this.busquedaSeleccionada.emit(this.busqueda);
@@ -65,13 +65,13 @@ export class CatalogoSideMenuComponent {
 
   public filtraRubro() {
     this.busqueda.rubro = this.altaForm.getRawValue().rubro;
-    this.busqueda.subrubro = '';
+    this.busqueda.categoria = '';
     this.busquedaSeleccionada.emit(this.busqueda);
   }
 
-  public filtraSubRubro() {
+  public filtracategoria() {
     this.busqueda.rubro = this.altaForm.getRawValue().rubro;
-    this.busqueda.subrubro = this.altaForm.getRawValue().subrubro;
+    this.busqueda.categoria = this.altaForm.getRawValue().categoria;
 
     console.log(this.articulos);
     

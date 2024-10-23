@@ -1,8 +1,8 @@
 
-export class Subrubro {
+export class categoria {
   constructor(
     public id?: number,
     public rubro?: string,
-    public subrubro?: string,
+    public categoria?: string,
   ) { }
 }
