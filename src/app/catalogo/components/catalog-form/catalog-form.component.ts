@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { StorageService } from 'src/app/services/firebase/File/storage.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-catalog-form',
@@ -20,7 +20,7 @@ export class CatalogFormComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private articulosService: ArticulosService,
-    private storageService: StorageService // Inyección del servicio
+    private storageService: StorageService
   ) {
     this.articuloForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -66,63 +66,48 @@ export class CatalogFormComponent implements OnInit {
     if (event.target.files.length > 0) {
       this.imageFile = event.target.files[0];
       const reader = new FileReader();
-      
+
       reader.readAsDataURL(this.imageFile);
       reader.onload = (e: any) => {
         const img = new Image();
         img.src = e.target.result;
-  
+
         img.onload = () => {
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
-          
-          // Definir el nuevo tamaño de la imagen (por ejemplo, 810x546)
-          const MAX_WIDTH = 810;
-          const MAX_HEIGHT = 546;
-  
-          // Obtener las dimensiones originales de la imagen
-          const originalWidth = img.width;
-          const originalHeight = img.height;
-  
-          // Calcular las nuevas dimensiones manteniendo la relación de aspecto
-          let newWidth = originalWidth;
-          let newHeight = originalHeight;
-  
-          if (originalWidth > MAX_WIDTH || originalHeight > MAX_HEIGHT) {
-            const aspectRatio = originalWidth / originalHeight;
-  
-            if (originalWidth > originalHeight) {
-              newWidth = MAX_WIDTH;
-              newHeight = MAX_WIDTH / aspectRatio;
-            } else {
-              newHeight = MAX_HEIGHT;
-              newWidth = MAX_HEIGHT * aspectRatio;
-            }
-          }
-  
-          // Ajustar el tamaño del canvas y redibujar la imagen
-          canvas.width = newWidth;
-          canvas.height = newHeight;
-          ctx?.drawImage(img, 0, 0, newWidth, newHeight);
-  
-          // Convertir el canvas a Blob (archivo de imagen)
-          canvas.toBlob((blob) => {
-            if (blob) {
-              this.imageFile = new File([blob], this.imageFile!.name, { type: this.imageFile!.type });
-              this.imageUrl = URL.createObjectURL(this.imageFile); // Mostrar la imagen redimensionada
-              this.articuloForm.get('urlPhoto')?.setValue(this.imageFile); // Actualizar el valor del formulario
-            }
-          }, this.imageFile!.type);
+
+          // Definir tamaño objetivo exacto
+          const TARGET_WIDTH = 432;
+          const TARGET_HEIGHT = 288;
+
+          // Redimensionar el canvas al tamaño deseado
+          canvas.width = TARGET_WIDTH;
+          canvas.height = TARGET_HEIGHT;
+
+          // Dibujar la imagen en el canvas con el tamaño forzado
+          ctx?.drawImage(img, 0, 0, TARGET_WIDTH, TARGET_HEIGHT);
+
+          // Convertir el canvas a Blob (archivo PNG de 32 bits)
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                this.imageFile = new File([blob], this.imageFile!.name, {
+                  type: 'image/png', // Asegurar PNG
+                });
+                this.imageUrl = URL.createObjectURL(this.imageFile); // Previsualización
+                this.articuloForm.get('urlPhoto')?.setValue(this.imageFile); // Actualizar formulario
+              }
+            },
+            'image/png', // Formato PNG
+            1 // Calidad completa
+          );
         };
       };
     }
   }
-  
 
   async submitForm() {
     if (this.articuloForm.valid) {
-      console.log('Formulario válido'); // Añadir este log para verificar el estado del formulario
-
       const formData = new FormData();
       Object.keys(this.articuloForm.controls).forEach((key) => {
         formData.append(key, this.articuloForm.get(key)?.value);
@@ -131,7 +116,7 @@ export class CatalogFormComponent implements OnInit {
       if (this.imageFile) {
         try {
           const downloadURL = await this.storageService.uploadFile(this.imageFile);
-          formData.set('urlPhoto', downloadURL); // Use set to replace existing value
+          formData.set('urlPhoto', downloadURL); // Reemplazar la URL de la foto
         } catch (error) {
           console.error('Error al subir la imagen:', error);
           return;
@@ -159,8 +144,6 @@ export class CatalogFormComponent implements OnInit {
           }
         );
       }
-    } else {
-      console.log('Formulario inválido'); // Añadir este log para verificar el estado del formulario
     }
   }
 }

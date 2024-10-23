@@ -40,9 +40,9 @@
           </div>
           <div class="col-md-3">
             <div class="articulo-details">
-              <p><strong>Rubro:</strong> {{ articulo.rubro }}</p>
-              <p><strong>categoria:</strong> {{ getcategoriaNombre(articulo.categoriaId) }}</p>
-              <p><strong>Observaciones:</strong> {{ articulo.observaciones }}</p>
+              <p><strong>Rubro:</strong> {{ articulo.rubro | titlecase }}</p>
+              <p><strong>Categoria:</strong> {{ articulo.categoria | titlecase }}</p>
+              <p><strong>Observaciones:</strong> {{ articulo.observaciones | titlecase }}</p>
             </div>
             <div class="articulo-actions">
               <button (click)="editArticulo(articulo)">Editar</button>

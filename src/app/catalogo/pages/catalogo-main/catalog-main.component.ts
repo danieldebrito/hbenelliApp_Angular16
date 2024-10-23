@@ -97,7 +97,8 @@ export class CatalogMainComponent implements OnInit {
         articulo.categoria?.toLowerCase().includes(term) ||
         articulo.nombre?.toLowerCase().includes(term) ||
         articulo.codigo?.toLowerCase().includes(term) ||
-        articulo.observaciones?.toLowerCase().includes(term)
+        articulo.observaciones?.toLowerCase().includes(term) ||
+        articulo.categoria?.toLowerCase().includes(term)
     );
   }
 

@@ -62,7 +62,8 @@ export class CatalogListComponent implements OnInit {
       articulo.nombre?.toLowerCase().includes(term) ||
       articulo.codigo?.toLowerCase().includes(term) ||
       articulo.rubro?.toLowerCase().includes(term) ||
-      articulo.observaciones?.toLowerCase().includes(term)
+      articulo.observaciones?.toLowerCase().includes(term) ||
+      articulo.categoria?.toLowerCase().includes(term)
     );
   }
 

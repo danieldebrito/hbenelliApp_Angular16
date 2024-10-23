@@ -7,7 +7,7 @@
           <label for="urlPhoto">Foto:</label>
           <input type="file" id="urlPhoto" (change)="onFileChange($event)" class="form-control" />
           <div *ngIf="imageUrl">
-            <img [src]="imageUrl" alt="Previsualización" class="preview-img">
+            <img [src]="imageUrl" alt="Previsualización" class="preview-img" />
           </div>
           <div *ngIf="!articuloForm.get('urlPhoto')?.value && (articuloForm.get('urlPhoto')?.touched || imageFile)" class="error">
             Foto es requerida.
