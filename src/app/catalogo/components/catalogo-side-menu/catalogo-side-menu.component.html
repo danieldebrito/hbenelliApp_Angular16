@@ -44,6 +44,12 @@
           <label for="searchInput" class="form-label">Búsqueda Libre</label>
           <input id="searchInput" class="form-control" type="text" placeholder="Buscar artículos..." formControlName="searchTerm" (change)="filterArticulos()">
         </div>
+              <!-- Botón Limpiar -->
+      <div class="p-2 text-center">
+        <button type="button" class="btn btn-outline-danger w-100" (click)="reset()">
+          <i class="fa fa-times-circle"></i> Limpiar Texto
+        </button>
+      </div>
       </div>
     </div>
   </div>
