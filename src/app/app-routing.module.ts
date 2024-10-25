@@ -17,13 +17,13 @@ const routes: Routes = [
     data: { animation: 'sign-in' },
   },
   {
-    path: 'register',
+    path: 'sign-up',
     loadChildren: () =>
       import('./auth/pages/sign-up/sign-up.module').then((m) => m.SignUpModule),
     data: { animation: 'sign-in' },
   },
   {
-    path: 'createadmin',
+    path: 'registro',
     loadChildren: () =>
       import('./auth/pages/create-admin/create-admin.module').then(
         (m) => m.CreateAdminModule

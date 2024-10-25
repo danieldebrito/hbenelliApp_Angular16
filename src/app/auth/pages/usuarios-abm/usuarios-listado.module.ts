@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UsuariosListadoRoutingModule } from './usuarios-listado-routing.module';
 import { UsuariosListadoComponent } from './usuarios-listado.component';
-import { UsuariosTablaComponent } from './usuarios-tabla/usuarios-tabla.component';
+import { UsuariosTablaComponent } from './usuarios-tabla/components/usuarios-tabla.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 
