@@ -1,90 +1,70 @@
-<!-- ======= Contact Section ======= -->
-<section id="contact" class="contact mt-3">
-  <div class="container" data-aos="fade-up">
-
-    <div class="section-header">
-      <h2>Contacto</h2>
-      <p>Podemos Ayudarte? <span>Contactanos</span></p>
+<!-- contact.component.html -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h2 class="geometric">Contacto</h2>
+      <p class="lead">¿Podemos ayudarte? <span class="highlight">Contáctanos</span></p>
     </div>
 
-    <a target="_blank" href="https://www.google.com.ar/maps/place/Hilados+H+Benelli+C%C3%ADa+SRL/@-34.6989868,-58.4027484,17z/data=!3m1!4b1!4m6!3m5!1s0x95bccce3d8c799fb:0x78148de09c23e959!8m2!3d-34.6989912!4d-58.4001735!16s%2Fg%2F1tfjm9sg?entry=ttu">
-      <img src="/assets/mapa.jpg" alt="Mapa" />
-    </a><!-- End Google Maps -->
-
-    <div class="row gy-4 mt-5">
-
-      <div class="col-md-6">
-        <div class="info-item  d-flex align-items-center">
-          <i class="icon bi bi-map flex-shrink-0"></i>
-          <div>
-            <h3>Nuestra Direccion:</h3>
-            <p>Udaondo 2078 (1824) Lanús, Pcia. de Buenos Aires, Argentina</p>
+    <div class="row g-4">
+      <!-- Mapa - Ocupa más espacio -->
+      <div class="col-lg-8">
+        <a target="_blank" href="https://www.google.com.ar/maps/place/Hilados+H+Benelli+C%C3%ADa+SRL/@-34.6989868,-58.4027484,17z/data=!3m1!4b1!4m6!3m5!1s0x95bccce3d8c799fb:0x78148de09c23e959!8m2!3d-34.6989912!4d-58.4001735!16s%2Fg%2F1tfjm9sg?entry=ttu"
+           class="map-container">
+          <img src="/assets/mapa.jpg" alt="Ubicación de Hilados Benelli" class="map-img">
+          <div class="map-overlay">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Ver en Google Maps</span>
           </div>
-        </div>
-      </div><!-- End Info Item -->
+        </a>
+      </div>
 
-      <div class="col-md-6">
-        <div class="info-item d-flex align-items-center">
-          <i class="icon bi bi-envelope flex-shrink-0"></i>
-          <div>
-            <h3>email</h3>
-            <p>administracion@hbenelli.com.ar</p>
+      <!-- Información de contacto -->
+      <div class="col-lg-4">
+        <div class="contact-info bg-light p-4 rounded">
+          <div class="info-item">
+            <div class="icon-container">
+              <i class="fa fa-map-marker fa-2x"></i>
+            </div>
+            <div class="info-content">
+              <h3>Nuestra Dirección</h3>
+              <p>Udaondo 2078 (1824) Lanús, Pcia. de Buenos Aires, Argentina</p>
+            </div>
           </div>
-        </div>
-      </div><!-- End Info Item -->
 
-      <div class="col-md-6">
-        <div class="info-item  d-flex align-items-center">
-          <i class="icon bi bi-telephone flex-shrink-0"></i>
-          <div>
-            <h3>LLamanos :</h3>
-            <p>11 3322-2370</p>
-            <p>11 4225-8389 / 8390</p>
+          <div class="info-item">
+            <div class="icon-container">
+              <i class="fa fa-envelope fa-2x"></i>
+            </div>
+            <div class="info-content">
+              <h3>Email</h3>
+              <p>administracion@hbenelli.com.ar</p>
+            </div>
           </div>
-        </div>
-      </div><!-- End Info Item -->
 
-      <div class="col-md-6">
-        <div class="info-item  d-flex align-items-center">
-          <i class="icon bi bi-share flex-shrink-0"></i>
-          <div>
-            <h3>Nuestros Horarios : </h3>
-            <div><strong>Lunes a Viernes:</strong> 8:00 hs a 17:00 hs <br>
-              <strong>Sabados y Domingos:</strong> Cerrado
+          <div class="info-item">
+            <div class="icon-container">
+              <i class="fa fa-phone fa-2x"></i>
+            </div>
+            <div class="info-content">
+              <h3>Teléfonos</h3>
+              <p>11 3322-2370</p>
+              <p>11 4225-8389 / 8390</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-container">
+              <i class="fa fa-clock-o fa-2x"></i>
+            </div>
+            <div class="info-content">
+              <h3>Horarios</h3>
+              <p><strong>Lunes a Viernes:</strong> 8:00 hs a 17:00 hs</p>
+              <p><strong>Sábados y Domingos:</strong> Cerrado</p>
             </div>
           </div>
         </div>
-      </div><!-- End Info Item -->
-
+      </div>
     </div>
-
-    <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
-      <div class="row">
-        <div class="col-xl-6 form-group mt-3">
-          <input type="text" formControlName="name" class="form-control" id="name" placeholder="Nombre" required>
-        </div>
-        <div class="col-xl-6 form-group mt-3">
-          <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email" required>
-        </div>
-      </div>
-      <div class="form-group mt-3">
-        <input type="text" formControlName="subject" class="form-control" id="subject" placeholder="Asunto" required>
-      </div>
-      <div class="form-group mt-3">
-        <textarea formControlName="message" class="form-control" rows="5" placeholder="Mensaje" required></textarea>
-      </div>
-      <div class="my-3">
-        <div class="error-message">{{ errorMessage }}</div>
-      </div>
-      <div class="text-center">
-
-      </div>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5">
-        <p><a type="submit" class="btn btn-lg btn-primary">Enviar Mensaje</a></p>
-      </div>
-    </form>
-
-    <!--End Contact Form -->
-
   </div>
-</section><!-- End Contact Section -->
+</section>

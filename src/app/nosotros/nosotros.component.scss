@@ -1,125 +1,110 @@
-.nosotros {
-    width: 100%;
-    height: 400px;
-    flex-shrink: 0;
-    background-color: rgb(231, 231, 231);
+/* nosotros.component.scss */
+.about-section {
+  padding: 5rem 0;
+  font-family: 'grotesk', sans-serif;
+  color: #333;
+}
+
+.founder-card {
+  .founder-img-container {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     
-}
-
-.nosotros {
-  background-image: url('../../assets/nosotros/slide.png');
-  background-size: cover; /* Ajusta la imagen al tamaño completo del elemento */
-  background-position: center; /* Centra la imagen */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
-  /* Agrega más estilos según tus necesidades */
-}
-
-
-.tittle {
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-}
-
-.geometric {
-    font-family: "geometric";
-}
-
-
-
-
-/* About Us Section
---------------------------------*/
-#about {
-    padding: 80px 0;
-  }
-  
-  #about .about-content h2 {
-    color: #413e66;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-  }
-  
-  #about .about-content h3 {
-    color: #696592;
-    font-weight: 400;
-    font-size: 22px;
-    font-style: italic;
-  }
-  
-  #about .about-content ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  #about .about-content ul li {
-    padding-bottom: 10px;
-  }
-  
-  #about .about-content ul li i {
-    font-size: 20px;
-    padding-right: 4px;
-    color: #1bb1dc;
-  }
-  
-  #about .about-img {
-    position: relative;
-    margin: 30px 30px 30px 30px;
-  }
-  
-  #about .about-img img {
-    width: 100%;
-    border: 8px solid #fff;
-    transition: 0.5s;
-  }
-  
-  #about .about-img img:hover {
-    width: 100%;
-    transform: scale(1.03);
-  }
-  
-  #about .about-img::before {
-    position: absolute;
-    left: -31px;
-    top: -30px;
-    width: 90%;
-    height: 92%;
-    z-index: -1;
-    content: "";
-    background-color: #ebf1fa;
-    transition: 0.5s;
-  }
-  
-  #about .about-img::after {
-    position: absolute;
-    right: -31px;
-    bottom: -30px;
-    width: 90%;
-    height: 92%;
-    z-index: -1;
-    content: "";
-    background-color: #ebf1fa;
-    transition: 0.5s;
-  }
-  
-  
-  p {
-    font-family: "grotesk", "arial", sans-serif;
-  }
-  
-  h3 {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "baloo", "arial", sans-serif;
-  }
-
-  .imgBenelli {
-    img {
-      max-width: 100%; // Ajusta el ancho de la imagen según tus necesidades
-      border-radius: 15px; // Agrega esquinas redondeadas
-      box-shadow: 0 2px 4px rgba(102, 97, 97, 0.1); // Agrega una sombra suave
+    .founder-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+      
+      &:hover {
+        transform: scale(1.03);
+      }
     }
   }
+  
+  .founder-label {
+    p {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #0C4061;
+      margin-bottom: 0.25rem;
+    }
+    
+    small {
+      color: #666;
+      font-style: italic;
+    }
+  }
+}
+
+.about-content {
+  .section-title {
+    color: #0C4061;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 15px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: #1bb1dc;
+    }
+  }
+  
+  .history-text {
+    p {
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+    
+    .closing {
+      font-weight: 600;
+      font-style: italic;
+      color: #0C4061;
+      padding-left: 15px;
+      border-left: 3px solid #1bb1dc;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .about-section {
+    padding: 3rem 0;
+  }
+  
+  .about-content {
+    .section-title {
+      font-size: 2rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 2rem 0;
+    
+    .founder-card {
+      margin-bottom: 2rem;
+    }
+    
+    .about-content {
+      .section-title {
+        font-size: 1.8rem;
+        text-align: center;
+        
+        &::after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}

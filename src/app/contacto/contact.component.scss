@@ -1,171 +1,170 @@
-/*--------------------------------------------------------------
-  # Contact Section
-  --------------------------------------------------------------*/
-.contact .info-item {
-  background: #f4f4f4;
-  padding: 30px;
-  height: 100%;
-}
+/* contact.component.scss */
+.contact-section {
+  padding: 5rem 0;
+  background-color: #f8f9fa;
+  font-family: 'grotesk', sans-serif;
+  color: #333;
 
-.contact .info-item .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  font-size: 24px;
-  line-height: 0;
-  color: #fff;
-  background: var(--color-primary);
-  border-radius: 50%;
-  margin-right: 15px;
-}
+  /* Importar Font Awesome */
+  $fa-font-path: "../node_modules/font-awesome/fonts";
 
-.contact .info-item h3 {
-  font-size: 20px;
-  color: #6c757d;
-  font-weight: 700;
-  margin: 0 0 5px 0;
-}
 
-.contact .info-item p {
-  padding: 0;
-  margin: 0;
-  line-height: 24px;
-  font-size: 14px;
-}
-
-.contact .info-item .social-links a {
-  font-size: 24px;
-  display: inline-block;
-  color: rgba(55, 55, 63, 0.7);
-  line-height: 1;
-  margin: 4px 6px 0 0;
-  transition: 0.3s;
-}
-
-.contact .info-item .social-links a:hover {
-  color: var(--color-primary);
-}
-
-.contact .php-email-form {
-  width: 100%;
-  margin-top: 30px;
-  background: #fff;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
-}
-
-.contact .php-email-form .form-group {
-  padding-bottom: 20px;
-}
-
-.contact .php-email-form .error-message {
-  display: none;
-  color: #fff;
-  background: #df1529;
-  text-align: left;
-  padding: 15px;
-  font-weight: 600;
-}
-
-.contact .php-email-form .error-message br+br {
-  margin-top: 25px;
-}
-
-.contact .php-email-form .sent-message {
-  display: none;
-  color: #fff;
-  background: #059652;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-}
-
-.contact .php-email-form .loading {
-  display: none;
-  background: #fff;
-  text-align: center;
-  padding: 15px;
-}
-
-.contact .php-email-form .loading:before {
-  content: "";
-  display: inline-block;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin: 0 10px -6px 0;
-  border: 3px solid #059652;
-  border-top-color: #fff;
-  -webkit-animation: animate-loading 1s linear infinite;
-  animation: animate-loading 1s linear infinite;
-}
-
-.contact .php-email-form input,
-.contact .php-email-form textarea {
-  border-radius: 0;
-  box-shadow: none;
-  font-size: 14px;
-}
-
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
-  border-color: var(--color-primary);
-}
-
-.contact .php-email-form input {
-  height: 48px;
-}
-
-.contact .php-email-form textarea {
-  padding: 10px 12px;
-}
-
-.contact .php-email-form button[type=submit] {
-  background: var(--color-primary);
-  border: 0;
-  padding: 12px 40px;
-  color: #fff;
-  transition: 0.4s;
-  border-radius: 50px;
-}
-
-.contact .php-email-form button[type=submit]:hover {
-  background: #ec2727;
-}
-
-@keyframes animate-loading {
-  0% {
-    transform: rotate(0deg);
+  .section-header {
+    h2 {
+      color: #0C4061;
+      font-size: 2.5rem;
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 1rem;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: #1bb1dc;
+      }
+    }
+    
+    p {
+      font-size: 1.2rem;
+      color: #666;
+      
+      .highlight {
+        color: #0C4061;
+        font-weight: 600;
+      }
+    }
   }
 
-  100% {
-    transform: rotate(360deg);
+  .map-container {
+    display: block;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 400px; /* Altura fija para el mapa */
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      
+      .map-overlay {
+        opacity: 1;
+      }
+    }
+    
+    .map-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .map-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(12, 64, 97, 0.85);
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+      
+      i {
+        font-size: 1.5rem;
+      }
+      
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .contact-info {
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    height: 100%; /* Ocupa toda la altura disponible */
+    
+    .info-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      align-items: flex-start;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .icon-container {
+        color: #0C4061;
+        font-size: 1.5rem;
+        min-width: 40px;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .info-content {
+        flex: 1;
+        
+        h3 {
+          color: #0C4061;
+          font-size: 1.1rem;
+          margin-bottom: 5px;
+          font-weight: 600;
+        }
+        
+        p {
+          margin-bottom: 0.5rem;
+          font-size: 0.95rem;
+          line-height: 1.6;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
   }
 }
 
-.btn {
-  border-radius: 7px;
-  background: #0C4061;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
-  // font-family: "geometric";
-}
-
-.btn-white {
-  background-color: white;
-}
-
-img {
-  width: 100%;
-  //max-width: 1250px;
-  height: auto;
-  border-radius: 15px; // Agrega esquinas redondeadas
-  box-shadow: 0 2px 4px rgba(102, 97, 97, 0.1); // Agrega una sombra suave
-}
-
-.imgBenelli {
-  img {
-    max-width: 100%; // Ajusta el ancho de la imagen según tus necesidades
+/* Responsive */
+@media (max-width: 992px) {
+  .contact-section {
+    padding: 3rem 0;
+    
+    .section-header {
+      h2 {
+        font-size: 2rem;
+      }
+    }
+    
+    .map-container {
+      height: 300px;
+      margin-bottom: 2rem;
+    }
   }
 }
 
+@media (max-width: 576px) {
+  .contact-section {
+    .contact-info {
+      .info-item {
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+      }
+    }
+  }
+}
