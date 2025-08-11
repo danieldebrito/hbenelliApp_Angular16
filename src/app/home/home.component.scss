@@ -1,123 +1,112 @@
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+/* home.component.scss */
+.minimal-home {
+  font-family: 'grotesk', sans-serif;
+  color: #333;
 }
 
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
+h2.geometric {
+  font-family: 'geometric', sans-serif;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 15px;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #0C4061;
   }
 }
 
-.b-example-divider {
-  width: 100%;
-  height: 3rem;
-  background-color: rgba(0, 0, 0, .1);
-  border: solid rgba(0, 0, 0, .15);
-  border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+.text-gray-700 {
+  color: #4a5568;
 }
 
-.b-example-vr {
-  flex-shrink: 0;
-  width: 1.5rem;
-  height: 100vh;
+.founder-card {
+  .founder-img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
 }
 
-.bi {
-  vertical-align: -.125em;
-  fill: currentColor;
+.commitment-card,
+.product-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  }
 }
 
-.nav-scroller {
-  position: relative;
-  z-index: 2;
-  height: 2.75rem;
-  overflow-y: hidden;
-}
-
-.nav-scroller .nav {
+.icon-wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
   display: flex;
-  flex-wrap: nowrap;
-  padding-bottom: 1rem;
-  margin-top: -1px;
-  overflow-x: auto;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 50%;
+  
+  .icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
 }
 
-.btn-bd-primary {
-  --bd-violet-bg: #712cf9;
-  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-  --bs-btn-font-weight: 600;
-  --bs-btn-color: var(--bs-white);
-  --bs-btn-bg: var(--bd-violet-bg);
-  --bs-btn-border-color: var(--bd-violet-bg);
-  --bs-btn-hover-color: var(--bs-white);
-  --bs-btn-hover-bg: #6528e0;
-  --bs-btn-hover-border-color: #6528e0;
-  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-  --bs-btn-active-color: var(--bs-btn-hover-color);
-  --bs-btn-active-bg: #5a23c8;
-  --bs-btn-active-border-color: #5a23c8;
+.bg-light {
+  background-color: #f8f9fa !important;
 }
 
-.bd-mode-toggle {
-  z-index: 1500;
+.btn-primary {
+  background-color: #0C4061;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 25px;
+  font-weight: 500;
+  transition: all 0.3s;
+  
+  &:hover {
+    background-color: #092b43;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(12, 64, 97, 0.2);
+  }
 }
 
-.geometric {
-  font-family: "geometric";
+section {
+  padding: 5rem 0;
+  
+  &:nth-child(even) {
+    background-color: #f8f9fa;
+  }
 }
 
-.btn {
-  border-radius: 7px;
-  background: #0C4061;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
-  // font-family: "geometric";
-}
-
-.btn-white {
-  background-color: white;
-}
-
-.alimenticios {
-  //opacity: 0.019999999552965164;
-  background-color: #0C4061 !important;
-  color: white !important;
-}
-
-.jumbotron {
-  background-color: transparent !important;
-}
-
-.whatsapp {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 40px;
-  right: 40px;
-  background-color: #25d366;
-  color: #FFF;
-  border-radius: 50px;
-  text-align: center;
-  font-size: 30px;
-  z-index: 100;
-}
-
-.whatsapp-icon {
-  margin-top: 13px;
-}
-
-.imgBenelli {
-  img {
-    max-width: 100%; // Ajusta el ancho de la imagen según tus necesidades
-    border-radius: 15px; // Agrega esquinas redondeadas
-    box-shadow: 0 2px 4px rgba(102, 97, 97, 0.1); // Agrega una sombra suave
+@media (max-width: 768px) {
+  section {
+    padding: 3rem 0;
+  }
+  
+  h2.geometric {
+    font-size: 1.8rem;
+    
+    &::after {
+      width: 60px;
+    }
   }
 }

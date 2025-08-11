@@ -1,228 +1,211 @@
-<!--
-    /////////////////////////////////////////  HILAMO LO BUENO, HILAMO 
+<!-- home.component.html -->
+<div class="minimal-home">
+  <!-- Carousel -->
+  <app-carousel></app-carousel>
 
+  <!-- Quienes Somos -->
+  <section class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-md-5 mb-4 mb-md-0">
+        <div class="founder-card text-center">
+          <img src="../../assets/home/benelli_chica.png" 
+               alt="Hector Benelli, Fundador" 
+               class="founder-img rounded-lg shadow-sm">
+          <p class="mt-3 text-muted">Hector Benelli, Fundador</p>
+        </div>
+      </div>
+      <div class="col-md-7 mt-5">
+        <div class="ps-md-4">
+          <h2 class="geometric mb-4">¿Quiénes Somos?</h2>
+          <p class="text-gray-700 mb-4">
+            En BENELLI, nos enorgullece contar con una sólida trayectoria en la industria de especias,
+            aditivos para productos cárnicos y textiles. Desde nuestros humildes comienzos en los años 80, hemos
+            crecido hasta convertirnos en un referente en todo el país.
+          </p>
+          <p class="text-gray-700 mb-4">
+            Nuestro compromiso con la calidad y la satisfacción del cliente nos incentiva a seguir innovando y
+            ofreciendo productos de excelencia en diversos mercados.
+          </p>
+          <a routerLink="/nosotros" class="btn btn-primary px-4 py-2">
+            Más Sobre Nosotros
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<aside class="py-lg-5 text-left ">
-    <div class="row py-lg-5">
-        <div class="col-lg-8 col-md-8 mx-auto">
-            <h1 class="fw-light geometric">Hilamos lo bueno,<br>
-                Unimos lo rico.</h1>
-            <br><br><br><br>
-            <p class="mt-5">
-                <a href="#" class="btn btn-success my-2">Catalogo</a>
+  <!-- Compromiso -->
+  <section class="bg-light py-5 mt-5">
+    <div class="container">
+      <h2 class="geometric text-center mb-5">Nuestro Compromiso</h2>
+      
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="commitment-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons/briefcase.svg" alt="Misión" class="icon">
+            </div>
+            <h3 class="h4">Misión</h3>
+            <p class="text-gray-700">
+              Proveer productos de alta calidad en las áreas de especias, aditivos para productos cárnicos y
+              textiles, satisfaciendo las necesidades de nuestros clientes.
             </p>
-
+          </div>
         </div>
-    </div>
-</aside>
--->
-
-<!-- /////////////////////////////////////////  FOTO BENELLI -->
-<app-carousel></app-carousel>
-
-
-<div class="container">
-    <div class="row featurette">
-        <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading fw-normal geometric lh-1">¿ Quienes Somos ? <span
-                    class="text-body-secondary"></span></h2>
-            <p class="lea-d">En BENELLI, nos enorgullece contar con una sólida trayectoria en la industria de especias,
-                aditivos para productos cárnicos y textiles. Desde nuestros humildes comienzos en los años 80, hemos
-                crecido hasta convertirnos en un referente en todo el país.
-
-                Nuestro compromiso con la calidad y la satisfacción del cliente nos incentiva a seguir innovando y
-                ofreciendo productos de excelencia en diversos mercados.
-                Para descubrir cómo hemos evolucionado a lo largo de los años y la visión que nos impulsa ...</p>
-            <p><a class="btn btn-lg btn-primary" routerLink="/nosotros">Más Sobre Nosotros</a></p>
-
-        </div>
-        <div class="col-md-5 order-md-1 imgBenelli">
-            <img src="../../assets/home/benelli_chica.png" alt="">
-            <p class="lead">Hector Benelli, Fundador</p>
-        </div>
-    </div>
-</div>
-
-<!--///////////////////////////////////////////////////////////////////////////////  COMPROMISO //////////////////////////////////////  -->
-
-<div class="my-5">
-    <div class="p-5 text-center bg-body-tertiary">
-        <div class="container py-5">
-            <h2 class="featurette-heading fw-normal geometric  lh-1 text-center">Nuestro Compromiso</h2>
-            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                <div class="feature col">
-                    <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                        <img src="assets/home/icons/briefcase.svg" alt="" srcset="">
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Misión</h3>
-                    <p>Proveer productos de alta calidad en las áreas de especias, aditivos para productos cárnicos y
-                        textiles, satisfaciendo las necesidades de nuestros clientes y manteniendo estándares de
-                        excelencia.
-                    </p>
-
-                </div>
-                <div class="feature col">
-                    <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                        <img src="assets/home/icons/send.svg" alt="" srcset="">
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Objetivos</h3>
-                    <p>Garantizar la calidad y seguridad de nuestros productos.
-                        Mantener relaciones cercanas y duraderas con nuestros clientes.
-                        Promover la mejora e innovación en nuestros procesos.
-                        Expandir nuestra presencia en nuevos mercados.
-                        Fomentar un ambiente de trabajo positivo y desarrollo profesional.
-                    </p>
-
-                </div>
-                <div class="feature col">
-                    <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                        <img src="assets/home/icons/shield_on.svg" alt="" srcset="">
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Visión</h3>
-                    <p>Ser reconocidos como líderes en nuestra industria a nivel nacional e internacional, siendo una
-                        empresa innovadora y confiable que genera valor para nuestros clientes y comunidad.
-                    </p>
-
-                </div>
+        
+        <div class="col-lg-4">
+          <div class="commitment-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons/send.svg" alt="Objetivos" class="icon">
             </div>
+            <h3 class="h4">Objetivos</h3>
+            <p class="text-gray-700">
+              Garantizar calidad y seguridad, mantener relaciones duraderas con clientes, promover innovación,
+              expandir mercados y fomentar un ambiente positivo.
+            </p>
+          </div>
         </div>
-    </div>
-</div>
-
-<!--///////////////////////////////////////////////////////////////////////////////  ALIMENTICIOS ///////////////////////////////////////////////////////////  -->
-
-
-<div class="alimenticios">
-    <div class="my-5">
-        <div class="p-5 text-center">
-            <div class="container py-5">
-                <h2 class="featurette-heading fw-normal geometric  lh-1 text-center">Alimenticios</h2>
-
-                <div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
-                    <div class="feature col">
-                        <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                            <img src="assets/home/icons_alimenticio/spices.png" alt="" srcset="">
-                        </div>
-                        <h3 class="fs-2">Especias</h3>
-                        <p>Achuete - Aji Molido - Clavo de Olor - Cayena Molida - Gomex - Glutamato Monosodico - etc.
-                        </p>
-
-                    </div>
-                    <div class="feature col">
-                        <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                            <img src="assets/home/icons_alimenticio/bolsa.png" alt="" srcset="">
-                        </div>
-                        <h3 class="fs-2">Harinas y más</h3>
-                        <p>Fécula de maíz - Harina de soja - Fécula de papa - Sangre Entera - etc.
-                        </p>
-                        <h3>&nbsp;</h3>
-
-
-                    </div>
-                    <div class="feature col">
-                        <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                            <img src="assets/home/icons_alimenticio/jamon.png" alt="" srcset="">
-                        </div>
-                        <h3 class="fs-2">Integrales saborizantes</h3>
-                        <p>Integral Chorizo Fresco - Saborizante de Matambre - Integral Bondiola - Sabor Nuez Moscada -
-                            etc.
-                        </p>
-
-
-                    </div>
-                    <div class="feature col">
-                        <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                            <img src="assets/home/icons_alimenticio/salchi.png" alt="" srcset="">
-                        </div>
-                        <h3 class="fs-2">Tripas varios</h3>
-                        <p>Orilla Vacuna - Tripón Vacuno - Colágeno - Bolsas Cristal - Celofán Micro Poroso - Red
-                            Mortadela
-                            - etc.
-                        </p>
-                        <h3>&nbsp;</h3>
-                    </div>
-                </div>
+        
+        <div class="col-lg-4">
+          <div class="commitment-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons/shield_on.svg" alt="Visión" class="icon">
             </div>
+            <h3 class="h4">Visión</h3>
+            <p class="text-gray-700">
+              Ser reconocidos como líderes en nuestra industria a nivel nacional e internacional, siendo una
+              empresa innovadora y confiable.
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </section>
 
-<!--///////////////////////////////////////////////////////////////////////////////  HILADOS Y PAPELERIA ///////////////////////////////////////////////////////////  -->
-
-
-<div class="hilados my-5">
-    <div class="p-5 text-center bg-body-tertiary">
-        <div class="container py-5">
-            <h2 class="featurette-heading fw-normal geometric  lh-1 text-center">Textil</h2>
-
-            <div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
-                <div class="feature col">
-                    <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                        <img src="assets/home/icons_hilados/cono.png" alt="" srcset="">
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Papeleria, Frigorifico, packaging, artesania, veleros</h3>
-                    <p>Hilatura Cruda, Colores, Pulidos o Parafinados, <br>
-                        Productos para atados, decorativos y pabilos, <br>
-                        En Bobinas de 330 gr, 500 gr y 900 gr <br>
-                        Ovillos de 30 gr, 50 gr y 100 gr
-                    </p>
-
-                </div>
-                <div class="feature col">
-                    <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                        <img src="assets/home/icons_hilados/hilo.png" alt="" srcset="">
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Agroindustria</h3>
-                    <p>Hilo crudo - pulido - color -piolin - sisal - yute - multifilamento - etc.
-                    </p>
-
-
-                </div>
-                <div class="feature col">
-                    <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                        <img src="assets/home/icons_hilados/ball.png" alt="" srcset="">
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Frigorífico</h3>
-                    <p>Hilo maq. ATA. - pulido - mortadela - super amarillo - etc.
-                    </p>
-
-
-                </div>
-                <div class="feature col">
-                    <div class="feature-icon d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-                        <img src="assets/home/icons_hilados/mas.png" alt="" srcset="">
-                    </div>
-                    <h3 class="fs-2 text-body-emphasis">Varios</h3>
-                    <p>Palote - embudos - pinche - discos plásticos - hamburgueseras - etc.
-                    </p>
-
-
-                </div>
+  <!-- Alimenticios -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="geometric text-center mb-5">Alimenticios</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="product-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons_alimenticio/spices.png" alt="Especias" class="icon">
             </div>
+            <h3 class="h5">Especias</h3>
+            <p class="text-gray-700">
+              Achuete, Aji Molido, Clavo de Olor, Cayena Molida, Glutamato Monosódico
+            </p>
+          </div>
         </div>
-    </div>
-</div>
-
-<!--///////////////////////////////////////////////////////////////////////////////  listo para tu PEDIDO ///////////////////////////////////////////////////////////  -->
-
-
-<div class="px-4 py-5 my-5 text-center">
-    <div class="col-lg-6 mx-auto mt-5">
-        <h2 class="featurette-heading fw-normal geometric lh-1">Comunicate con nosotros : </h2>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5">
-            <p><a class="btn btn-lg btn-primary" routerLink="/contacto">Contacto</a></p>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="product-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons_alimenticio/bolsa.png" alt="Harinas" class="icon">
+            </div>
+            <h3 class="h5">Harinas y más</h3>
+            <p class="text-gray-700">
+              Fécula de maíz, Harina de soja, Fécula de papa, Sangre Entera
+            </p>
+          </div>
         </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="product-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons_alimenticio/jamon.png" alt="Saborizantes" class="icon">
+            </div>
+            <h3 class="h5">Integrales saborizantes</h3>
+            <p class="text-gray-700">
+              Integral Chorizo Fresco, Saborizante de Matambre, Integral Bondiola
+            </p>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="product-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons_alimenticio/salchi.png" alt="Tripas" class="icon">
+            </div>
+            <h3 class="h5">Tripas varios</h3>
+            <p class="text-gray-700">
+              Orilla Vacuna, Tripón Vacuno, Colágeno, Bolsas Cristal
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </section>
 
-<!--
-<div class="px-4 py-5 my-5 text-center bg-body-tertiary">
-
-    <h2 class="featurette-heading fw-normal geometric lh-1">¿Listo para realizar tu pedido?</h2>
-
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5">
-        <p><a class="btn btn-lg btn-primary" routerLink="/catalogo">Catalogo</a></p>
+  <!-- Textil -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <h2 class="geometric text-center mb-5">Textil</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="product-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons_hilados/cono.png" alt="Papelería" class="icon">
+            </div>
+            <h3 class="h5">Papelería y más</h3>
+            <p class="text-gray-700">
+              Hilatura Cruda, Colores, Pulidos o Parafinados, Productos para atados y decorativos
+            </p>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="product-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons_hilados/hilo.png" alt="Agroindustria" class="icon">
+            </div>
+            <h3 class="h5">Agroindustria</h3>
+            <p class="text-gray-700">
+              Hilo crudo, pulido, color, piolín, sisal, yute, multifilamento
+            </p>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="product-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons_hilados/ball.png" alt="Frigorífico" class="icon">
+            </div>
+            <h3 class="h5">Frigorífico</h3>
+            <p class="text-gray-700">
+              Hilo maq. ATA, pulido, mortadela, super amarillo
+            </p>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="product-card h-100 p-4 text-center">
+            <div class="icon-wrapper mb-4">
+              <img src="assets/home/icons_hilados/mas.png" alt="Varios" class="icon">
+            </div>
+            <h3 class="h5">Varios</h3>
+            <p class="text-gray-700">
+              Palote, embudos, pinche, discos plásticos, hamburgueseras
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
+  <!-- Contacto -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h2 class="geometric mb-4">¿Listo para comenzar?</h2>
+      <p class="lead text-gray-700 mb-4">
+        Contáctanos para más información sobre nuestros productos
+      </p>
+      <a routerLink="/contacto" class="btn btn-primary px-5 py-2">
+        Contactar
+      </a>
+    </div>
+  </section>
 </div>
--->
