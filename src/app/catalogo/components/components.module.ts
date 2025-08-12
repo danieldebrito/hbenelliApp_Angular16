@@ -10,6 +10,9 @@ import { CatalogItemComponent } from './catalog-item/catalog-item.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { RouterModule } from '@angular/router';
 import { CatalogFormComponent } from './catalog-form/catalog-form.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -26,8 +29,10 @@ import { CatalogFormComponent } from './catalog-form/catalog-form.component';
     ReactiveFormsModule,
     NgxPaginationModule,
     RouterModule,
-    FormsModule
-
+    FormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatSelectModule,
   ],
   exports: [
     CatalogCardsGridComponent,
@@ -39,4 +44,4 @@ import { CatalogFormComponent } from './catalog-form/catalog-form.component';
     CatalogFormComponent,
   ],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
