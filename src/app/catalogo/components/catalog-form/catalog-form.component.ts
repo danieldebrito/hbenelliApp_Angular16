@@ -17,24 +17,6 @@ export class CatalogFormComponent implements OnInit {
   articuloId: number | null = null;
   imageUrl: string | ArrayBuffer | null = null;
   imageFile: File | null = null;
-<<<<<<< HEAD
-=======
-  loading = false;
-  imageLoading = false;
-  rubros: string[] = [
-    'Herramientas',
-    'Electricidad',
-    'Fontanería',
-    'Ferretería General',
-  ];
-  categorias: { [key: string]: string[] } = {
-    Herramientas: ['Manuales', 'Eléctricas', 'Jardinería'],
-    Electricidad: ['Cables', 'Iluminación', 'Interruptores'],
-    Fontanería: ['Tuberías', 'Accesorios', 'Grifería'],
-    'Ferretería General': ['Tornillería', 'Sujeción', 'Selladores'],
-  };
-  filteredCategorias: string[] = [];
->>>>>>> 684457f0de0233ce1cc837b0bdad1925d4d2ffb4
 
   constructor(
     private route: ActivatedRoute,
@@ -124,68 +106,6 @@ export class CatalogFormComponent implements OnInit {
         };
       };
     }
-<<<<<<< HEAD
-=======
-
-    if (file.size > 5 * 1024 * 1024) {
-      this.snackBar.open('La imagen es demasiado grande (máx. 5MB)', 'Cerrar', {
-        duration: 3000,
-      });
-      return;
-    }
-
-    this.imageFile = file;
-    this.imageLoading = true;
-    
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e: any) => {
-      const img = new Image();
-      img.src = e.target.result;
-
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-
-        // Definir tamaño objetivo exacto
-        const TARGET_WIDTH = 432;
-        const TARGET_HEIGHT = 288;
-
-        // Redimensionar el canvas al tamaño deseado
-        canvas.width = TARGET_WIDTH;
-        canvas.height = TARGET_HEIGHT;
-
-        // Dibujar la imagen en el canvas con el tamaño forzado
-        ctx?.drawImage(img, 0, 0, TARGET_WIDTH, TARGET_HEIGHT);
-
-        // Convertir el canvas a Blob (archivo PNG de 32 bits)
-        canvas.toBlob(
-          (blob) => {
-            if (blob) {
-              this.imageFile = new File([blob], file.name, {
-                type: 'image/png',
-              });
-              this.imageUrl = URL.createObjectURL(this.imageFile);
-              this.articuloForm.get('urlPhoto')?.setValue(this.imageFile);
-            }
-            this.imageLoading = false;
-          },
-          'image/png',
-          1
-        );
-      };
-
-      img.onerror = () => {
-        this.imageLoading = false;
-        this.snackBar.open('Error al procesar la imagen', 'Cerrar', { duration: 3000 });
-      };
-    };
-
-    reader.onerror = () => {
-      this.imageLoading = false;
-      this.snackBar.open('Error al leer la imagen', 'Cerrar', { duration: 3000 });
-    };
->>>>>>> 684457f0de0233ce1cc837b0bdad1925d4d2ffb4
   }
 
   async submitForm() {
