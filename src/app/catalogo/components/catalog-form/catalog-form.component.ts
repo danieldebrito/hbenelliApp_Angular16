@@ -1,10 +1,9 @@
+// catalog-form.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { StorageService } from 'src/app/services/firebase/File/storage.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Articulo } from 'src/app/class/articulo';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-catalog-form',
@@ -17,6 +16,20 @@ export class CatalogFormComponent implements OnInit {
   articuloId: number | null = null;
   imageUrl: string | ArrayBuffer | null = null;
   imageFile: File | null = null;
+  uploadProgress: number | null = null;
+  isSubmitting = false;
+  showPhotoError = false;
+
+  // Form control getters
+  get nombre() { return this.articuloForm.get('nombre'); }
+  get descripcion() { return this.articuloForm.get('descripcion'); }
+  get codigo() { return this.articuloForm.get('codigo'); }
+  get peso() { return this.articuloForm.get('peso'); }
+  get unidad() { return this.articuloForm.get('unidad'); }
+  get precioLista() { return this.articuloForm.get('precioLista'); }
+  get precioNeto() { return this.articuloForm.get('precioNeto'); }
+  get rubro() { return this.articuloForm.get('rubro'); }
+  get categoria() { return this.articuloForm.get('categoria'); }
 
   constructor(
     private route: ActivatedRoute,
@@ -25,23 +38,17 @@ export class CatalogFormComponent implements OnInit {
     private storageService: StorageService
   ) {
     this.articuloForm = this.fb.group({
-      nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      descripcion: ['', [Validators.required, Validators.minLength(10)]],
       codigo: ['', Validators.required],
-      peso: ['', Validators.required],
+      peso: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       unidad: ['', Validators.required],
-      precioLista: [
-        '',
-        [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],
-      ],
-      precioNeto: [
-        '',
-        [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],
-      ],
+      precioLista: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      precioNeto: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       rubro: ['', Validators.required],
       categoria: ['', Validators.required],
       observaciones: [''],
-      urlPhoto: ['', Validators.required],
+      urlPhoto: ['']
     });
   }
 
@@ -94,14 +101,14 @@ export class CatalogFormComponent implements OnInit {
             (blob) => {
               if (blob) {
                 this.imageFile = new File([blob], this.imageFile!.name, {
-                  type: 'image/png', // Asegurar PNG
+                  type: 'image/png',
                 });
-                this.imageUrl = URL.createObjectURL(this.imageFile); // Previsualización
-                this.articuloForm.get('urlPhoto')?.setValue(this.imageFile); // Actualizar formulario
+                this.imageUrl = URL.createObjectURL(this.imageFile);
+                this.showPhotoError = false;
               }
             },
-            'image/png', // Formato PNG
-            1 // Calidad completa
+            'image/png',
+            1
           );
         };
       };
@@ -109,43 +116,59 @@ export class CatalogFormComponent implements OnInit {
   }
 
   async submitForm() {
-    if (this.articuloForm.valid) {
-      const formData = new FormData();
-      Object.keys(this.articuloForm.controls).forEach((key) => {
-        formData.append(key, this.articuloForm.get(key)?.value);
-      });
+    // Reset error states
+    this.showPhotoError = false;
+    Object.values(this.articuloForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
 
+    // Photo validation
+    if (!this.imageFile && !this.imageUrl) {
+      this.showPhotoError = true;
+      return;
+    }
+
+    // Form validation
+    if (this.articuloForm.invalid) {
+      return;
+    }
+
+    this.isSubmitting = true;
+    let downloadURL = this.imageUrl as string;
+
+    try {
+      // Upload new image if selected
       if (this.imageFile) {
-        try {
-          const downloadURL = await this.storageService.uploadFile(this.imageFile);
-          formData.set('urlPhoto', downloadURL); // Reemplazar la URL de la foto
-        } catch (error) {
-          console.error('Error al subir la imagen:', error);
-          return;
-        }
+        this.uploadProgress = 0;
+        downloadURL = await this.storageService.uploadFile(
+          this.imageFile, 
+          (progress) => this.uploadProgress = progress
+        );
       }
 
+      // Prepare form data
+      const formData = {
+        ...this.articuloForm.value,
+        urlPhoto: downloadURL
+      };
+
+      // Save or update
       if (this.isEditMode) {
-        this.articulosService.update(this.articuloId!, formData).subscribe(
-          () => {
-            alert('Artículo actualizado con éxito');
-          },
-          (error) => {
-            console.error('Error al actualizar el artículo:', error);
-          }
-        );
+        await this.articulosService.update(this.articuloId!, formData).toPromise();
+        alert('Artículo actualizado con éxito');
       } else {
-        this.articulosService.save(formData).subscribe(
-          () => {
-            alert('Artículo agregado con éxito');
-            this.articuloForm.reset();
-            this.imageUrl = null;
-          },
-          (error) => {
-            console.error('Error al agregar el artículo:', error);
-          }
-        );
+        await this.articulosService.save(formData).toPromise();
+        alert('Artículo agregado con éxito');
+        this.articuloForm.reset();
+        this.imageUrl = null;
+        this.imageFile = null;
       }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Ocurrió un error. Por favor intente nuevamente');
+    } finally {
+      this.isSubmitting = false;
+      this.uploadProgress = null;
     }
   }
 }

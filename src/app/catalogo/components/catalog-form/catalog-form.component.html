@@ -1,3 +1,4 @@
+<!-- catalog-form.component.html -->
 <div class="catalog-form-container">
   <h2>{{ isEditMode ? 'Editar Artículo' : 'Agregar Nuevo Artículo' }}</h2>
   <form [formGroup]="articuloForm" (ngSubmit)="submitForm()">
@@ -5,90 +6,141 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="urlPhoto">Foto:</label>
-          <input type="file" id="urlPhoto" (change)="onFileChange($event)" class="form-control" />
-          <div *ngIf="imageUrl">
+          <input type="file" id="urlPhoto" (change)="onFileChange($event)" 
+                 class="form-control" accept="image/*" />
+          
+          <!-- Progress Bar -->
+          <div *ngIf="uploadProgress !== null" class="progress-bar-container">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" 
+                   [style.width.%]="uploadProgress" 
+                   [attr.aria-valuenow]="uploadProgress">
+                {{ uploadProgress }}%
+              </div>
+            </div>
+          </div>
+          
+          <!-- Image Preview -->
+          <div *ngIf="imageUrl" class="image-preview">
             <img [src]="imageUrl" alt="Previsualización" class="preview-img" />
           </div>
-          <div *ngIf="!articuloForm.get('urlPhoto')?.value && (articuloForm.get('urlPhoto')?.touched || imageFile)" class="error">
-            Foto es requerida.
+          
+          <!-- Validation Message -->
+          <div *ngIf="showPhotoError" class="error">
+            Foto es requerida
           </div>
         </div>
       </div>
+      
       <div class="col-md-8">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
-          <input id="nombre" formControlName="nombre" class="form-control" />
-          <div *ngIf="articuloForm.get('nombre')?.invalid && articuloForm.get('nombre')?.touched" class="error">
-            Nombre es requerido.
+          <input id="nombre" formControlName="nombre" class="form-control input-medium" />
+          <div *ngIf="nombre.invalid && (nombre.touched || nombre.dirty)" class="error">
+            <div *ngIf="nombre.hasError('required')">Nombre es requerido</div>
+            <div *ngIf="nombre.hasError('minlength')">Mínimo 3 caracteres</div>
           </div>
         </div>
+        
         <div class="form-group">
           <label for="descripcion">Descripción:</label>
-          <textarea id="descripcion" formControlName="descripcion" class="form-control"></textarea>
-          <div *ngIf="articuloForm.get('descripcion')?.invalid && articuloForm.get('descripcion')?.touched"
-            class="error">
-            Descripción es requerida.
+          <textarea id="descripcion" formControlName="descripcion" 
+                    class="form-control input-medium" rows="3"></textarea>
+          <div *ngIf="descripcion.invalid && (descripcion.touched || descripcion.dirty)" class="error">
+            <div *ngIf="descripcion.hasError('required')">Descripción es requerida</div>
+            <div *ngIf="descripcion.hasError('minlength')">Mínimo 10 caracteres</div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="codigo">Código:</label>
-          <input id="codigo" formControlName="codigo" class="form-control" />
-          <div *ngIf="articuloForm.get('codigo')?.invalid && articuloForm.get('codigo')?.touched" class="error">
-            Código es requerido.
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="codigo">Código:</label>
+              <input id="codigo" formControlName="codigo" class="form-control input-small" />
+              <div *ngIf="codigo.invalid && (codigo.touched || codigo.dirty)" class="error">
+                <div *ngIf="codigo.hasError('required')">Código es requerido</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="peso">Peso:</label>
+              <input id="peso" formControlName="peso" class="form-control input-small" />
+              <div *ngIf="peso.invalid && (peso.touched || peso.dirty)" class="error">
+                <div *ngIf="peso.hasError('required')">Peso es requerido</div>
+                <div *ngIf="peso.hasError('pattern')">Formato inválido (ej: 12.34)</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="peso">Peso:</label>
-          <input id="peso" formControlName="peso" class="form-control" />
-          <div *ngIf="articuloForm.get('peso')?.invalid && articuloForm.get('peso')?.touched" class="error">
-            Peso es requerido.
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="unidad">Unidad:</label>
+              <input id="unidad" formControlName="unidad" class="form-control input-small" />
+              <div *ngIf="unidad.invalid && (unidad.touched || unidad.dirty)" class="error">
+                <div *ngIf="unidad.hasError('required')">Unidad es requerida</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="precioLista">Precio Lista:</label>
+              <input id="precioLista" formControlName="precioLista" class="form-control input-small" />
+              <div *ngIf="precioLista.invalid && (precioLista.touched || precioLista.dirty)" class="error">
+                <div *ngIf="precioLista.hasError('required')">Precio Lista es requerido</div>
+                <div *ngIf="precioLista.hasError('pattern')">Formato inválido (ej: 123.45)</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="unidad">Unidad:</label>
-          <input id="unidad" formControlName="unidad" class="form-control" />
-          <div *ngIf="articuloForm.get('unidad')?.invalid && articuloForm.get('unidad')?.touched" class="error">
-            Unidad es requerida.
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="precioNeto">Precio Neto:</label>
+              <input id="precioNeto" formControlName="precioNeto" class="form-control input-small" />
+              <div *ngIf="precioNeto.invalid && (precioNeto.touched || precioNeto.dirty)" class="error">
+                <div *ngIf="precioNeto.hasError('required')">Precio Neto es requerido</div>
+                <div *ngIf="precioNeto.hasError('pattern')">Formato inválido (ej: 100.50)</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="rubro">Rubro:</label>
+              <input id="rubro" formControlName="rubro" class="form-control input-small" />
+              <div *ngIf="rubro.invalid && (rubro.touched || rubro.dirty)" class="error">
+                <div *ngIf="rubro.hasError('required')">Rubro es requerido</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="precioLista">Precio Lista:</label>
-          <input id="precioLista" formControlName="precioLista" class="form-control" />
-          <div *ngIf="articuloForm.get('precioLista')?.invalid && articuloForm.get('precioLista')?.touched"
-            class="error">
-            Precio Lista es requerido y debe ser un número válido.
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="categoria">Categoría:</label>
+              <input id="categoria" formControlName="categoria" class="form-control input-small" />
+              <div *ngIf="categoria.invalid && (categoria.touched || categoria.dirty)" class="error">
+                <div *ngIf="categoria.hasError('required')">Categoría es requerida</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="precioNeto">Precio Neto:</label>
-          <input id="precioNeto" formControlName="precioNeto" class="form-control" />
-          <div *ngIf="articuloForm.get('precioNeto')?.invalid && articuloForm.get('precioNeto')?.touched" class="error">
-            Precio Neto es requerido y debe ser un número válido.
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="rubro">Rubro:</label>
-          <input id="rubro" formControlName="rubro" class="form-control" />
-          <div *ngIf="articuloForm.get('rubro')?.invalid && articuloForm.get('rubro')?.touched" class="error">
-            Rubro es requerido.
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="categoria">categoria:</label>
-          <input id="categoria" formControlName="categoria" class="form-control" />
-          <div *ngIf="articuloForm.get('categoria')?.invalid && articuloForm.get('categoria')?.touched" class="error">
-            categoria es requerido.
-          </div>
-        </div>
+
         <div class="form-group">
           <label for="observaciones">Observaciones:</label>
-          <textarea id="observaciones" formControlName="observaciones" class="form-control"></textarea>
+          <textarea id="observaciones" formControlName="observaciones" 
+                    class="form-control input-medium" rows="3"></textarea>
         </div>
       </div>
     </div>
 
-    <button type="submit" [disabled]="articuloForm.invalid" class="btn btn-primary">
+    <button type="submit" [disabled]="articuloForm.invalid || isSubmitting" class="btn btn-primary">
       {{ isEditMode ? 'Actualizar Artículo' : 'Agregar Artículo' }}
+      <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
     </button>
   </form>
 </div>
