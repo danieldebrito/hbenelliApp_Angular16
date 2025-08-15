@@ -28,87 +28,56 @@
               </div>
             </div>
 
-            <div *ngIf="mostrarPass">
-              <div class="input-group mb-2">
-                <div class="input-group">
-                  <div class="input-group-text"><i class="fa fa-key"></i></div>
-                  <input 
-                    type="text" 
-                    class="form-control" 
-                    formControlName="password"
-                    placeholder="Contraseña"
-                    autocomplete="current-password"
-                    [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
-                  />
-                </div>
+            <div class="mb-3">
+              <div class="input-group">
+                <div class="input-group-text"><i class="fa fa-key"></i></div>
+                <input 
+                  [type]="mostrarPass ? 'text' : 'password'" 
+                  class="form-control" 
+                  formControlName="password"
+                  placeholder="Contraseña"
+                  autocomplete="current-password"
+                  [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
+                />
+                <button 
+                  class="btn btn-outline-secondary" 
+                  type="button"
+                  (click)="verOcultarPass()"
+                >
+                  <i [class]="mostrarPass ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+                </button>
               </div>
-              <a class="pass ml-2" (click)="verOcultarPass()">
-                <i class="fa fa-eye-slash"></i> Ocultar contraseña
-              </a>
-            </div>
-
-            <div *ngIf="!mostrarPass">
-              <div class="input-group mb-2">
-                <div class="input-group">
-                  <div class="input-group-text"><i class="fa fa-key"></i></div>
-                  <input 
-                    type="password" 
-                    class="form-control" 
-                    formControlName="password"
-                    placeholder="Contraseña"
-                    autocomplete="current-password"
-                    [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
-                  />
-                </div>
+              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback d-block">
+                <div *ngIf="password.errors?.['required']">La contraseña es requerida</div>
+                <div *ngIf="password.errors?.['minlength']">Mínimo 6 caracteres</div>
               </div>
-              <a class="pass ml-2" (click)="verOcultarPass()">
-                <i class="fa fa-eye"></i> Ver contraseña
-              </a>
             </div>
 
-            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback d-block">
-              <div *ngIf="password.errors?.['required']">La contraseña es requerida</div>
-              <div *ngIf="password.errors?.['minlength']">Mínimo 6 caracteres</div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+              {{ errorMessage }}
             </div>
 
-            <div class="alert alert-danger mt-3" role="alert" *ngIf="error">
-              Usuario o contraseña incorrecta
-            </div>
-
-            <div class="d-flex justify-content-center mt-3 login_container">
+            <div class="d-flex justify-content-center mt-4">
               <button 
-                class="btn login_btn" 
-                [disabled]="form.invalid || loading"
-                [ngClass]="{'loading': loading}"
+                class="btn btn-primary w-100 py-2" 
+                [disabled]="loginForm.invalid || loading"
               >
                 <span *ngIf="!loading">Ingresar</span>
                 <span *ngIf="loading">
-                  <i class="fa fa-spinner fa-spin"></i> Procesando...
+                  <i class="fa fa-spinner fa-spin me-2"></i> Procesando...
                 </span>
               </button>
             </div>
           </form>
         </div>
 
-        <div class="m-4">
-          <div class="d-flex justify-content-center links">
-            ¿No tenés cuenta? <a [routerLink]="'/sign-up'" class="ml-2">Registrate</a>
+        <div class="mt-4 pt-3 border-top">
+          <div class="d-flex justify-content-center links mb-2">
+            ¿No tenés cuenta? <a [routerLink]="'/sign-up'" class="ml-2 fw-bold">Registrate</a>
           </div>
           <div class="d-flex justify-content-center links">
-            <a [routerLink]="['/forgot-password']">¿Olvidaste tu contraseña?</a>
+            <a [routerLink]="['/forgot-password']" class="fw-bold">¿Olvidaste tu contraseña?</a>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container mt-5">
-    <h4 class="text-center mb-4">Acceso rápido</h4>
-    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
-      <div class="col text-center" *ngFor="let item of usuariosAccesoRapido">
-        <div class="quick-access-card" (click)="loguear(item)">
-          <img class="image" [src]="item.photoURL || './assets/user-default.png'" alt="{{item.role}}">
-          <p class="mt-2 mb-0">{{ item.role }}</p>
         </div>
       </div>
     </div>

@@ -53,51 +53,84 @@ export class AuthService {
   );
  }
 
- async SignIn(credentials: { email: string; password: string }): Promise<void> {
+async SignIn(credentials: { email: string; password: string }): Promise<void> {
   try {
-   const result = await this.afAuth.signInWithEmailAndPassword(
-    credentials.email,
-    credentials.password
-   );
+    const result = await this.afAuth.signInWithEmailAndPassword(
+      credentials.email,
+      credentials.password
+    );
 
-   if (result.user) {
+    if (!result.user) {
+      throw new Error('No se pudo autenticar el usuario');
+    }
+
+    // Obtener datos del usuario desde Firestore
     const userDoc = await this.usuariosSv.getItemByUid(result.user.uid).toPromise();
     const usuario = userDoc as Usuario;
 
-    // Verificar si el usuario está habilitado
-    if (!usuario?.habilitado) {
-     await this.afAuth.signOut();
-     throw new Error('Tu cuenta no está habilitada. Contacta al administrador.');
+    if (!usuario) {
+      await this.afAuth.signOut();
+      throw { 
+        code: 'auth/user-not-registered', 
+        message: 'Usuario no registrado en el sistema' 
+      };
     }
 
-    // Verificar si el email está verificado
-    if (!result.user.emailVerified) {
-     await this.SendVerificationMail();
-     throw new Error('Por favor verifica tu correo electrónico. Hemos enviado un nuevo enlace.');
+    if (!usuario.habilitado) {
+      await this.afAuth.signOut();
+      throw { 
+        code: 'auth/account-not-enabled', 
+        message: 'Cuenta deshabilitada' 
+      };
     }
+
+    if (!result.user.emailVerified) {
+      await this.SendVerificationMail();
+      throw { 
+        code: 'auth/email-not-verified', 
+        message: 'Email no verificado' 
+      };
+    }
+
+    // Actualizar datos de usuario
+    this.currentUser = usuario;
+    localStorage.setItem('user', JSON.stringify(usuario));
 
     // Guardar log de acceso
     const log = {
-     usuario: usuario,
-     fechaIngreso: new Date(),
+      usuario: usuario,
+      fechaIngreso: new Date(),
     };
     this.logService.addItem(log);
 
     // Navegar a la página principal
     this.ngZone.run(() => {
-     this.router.navigate(['/home']);
+      this.router.navigate(['/home']);
     });
-   }
+    
   } catch (error: any) {
-   console.error('Error en inicio de sesión:', error);
-   Swal.fire({
-    icon: 'error',
-    title: 'Error de autenticación',
-    text: error.message || 'Credenciales incorrectas o problema de conexión',
-   });
-   throw error;
+    console.error('Error en inicio de sesión:', error);
+    
+    // Propagamos el código de error original
+    if (error.code) {
+      throw { 
+        code: error.code, 
+        message: error.message 
+      };
+    }
+    
+    // Para errores de Firebase, mantenemos la estructura
+    if (error?.code?.startsWith('auth/')) {
+      throw error;
+    }
+    
+    // Para otros errores, creamos una estructura consistente
+    throw { 
+      code: 'auth/general-error', 
+      message: error.message || 'Error de autenticación' 
+    };
   }
- }
+}
 
  async SignUp(newUser: Usuario): Promise<any> {
   return this.afAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
