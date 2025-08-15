@@ -1,102 +1,87 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ERole, Usuario } from '../../class/usuario';
-import { UsuariosService } from '../../services/usuarios.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { UsuariosService } from 'src/app/auth/services/usuarios.service';
+import { ERole, Usuario } from 'src/app/auth/class/usuario';
+import { EStatus } from '../../class/user';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss'],
+ selector: 'app-create-admin',
+ templateUrl: './sign-in.component.html',
+ styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-
-  public error = false;
-  public mostrarPass = false;
-  public usuariosAccesoRapido: Usuario[] = [];
-
-
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6),
-    ]),
-  });
-
-  constructor(
-    private authSvc: AuthService,
-    public usuariosSv: UsuariosService,
-    private router: Router,
-  ) {}
-
-  
-
-  async onLogin(): Promise<void> {
-    const { email, password } = this.loginForm.value;
-
-    const user = await this.authSvc.SignIn({ email, password });
-  }
-
-  public errorFalse(): void {
-    this.error = false;
-  }
-
-  verOcultarPass() {
-    this.mostrarPass = !this.mostrarPass;
-  }
-
-  AutoSignIn(){
-    
-    this.loginForm.setValue({
-      email: 'danielrdebrito@gmail.com',
-      password: '123456'
-    });
-    
-    //this.authSvc.SignIn( { email: 'danielrdebrito@gmail.com', password: '123456'});
-  }
-
-  public login(email: string, password: string){
-    let user: Usuario = {
-      email: email,
-      password: password
-    }
-    this.authSvc.SignIn(user);
-  }
-
-  public loguear(item: any){
-
-    let user: Usuario = {
-      email: item.email,
-      password: item.password
-    }
-
-    this.loginForm.setValue({
-      email: item.email,
-      password: item.password
-    });
-
-    //this.authSvc.SignIn(user);
-
-  }
-
-  public accesosRapidos(){
-    this.usuariosSv.getItems().subscribe( usuarios => {
-
-      const pacientes: Usuario[] = usuarios.filter(usuario => usuario.role === ERole.paciente).slice(0, 3);
-      const especialistas: Usuario[] = usuarios.filter(usuario => usuario.role === ERole.especialista).slice(0, 2);
-      const admin: Usuario[] = usuarios.filter(usuario => usuario.role === ERole.administrador).slice(0, 1);
-
-      this.usuariosAccesoRapido = pacientes.concat(especialistas.concat(admin));
-      
-      //console.log(this.usuariosAccesoRapido);
-
-    } );
-  }
-
-  ngOnInit() { 
-    this.accesosRapidos();
-  }
+onLogin() {
+throw new Error('Method not implemented.');
 }
+ public loading = false;
+ public form: FormGroup;
+loginForm: any;
+email: any;
+mostrarPass: any;
+password: any;
+error: any;
+usuariosAccesoRapido: any;
 
+ constructor(
+  private authService: AuthService,
+  private usuariosService: UsuariosService,
+  private router: Router
+ ) {
+  this.form = new FormGroup({
+   nombre: new FormControl('', [Validators.required]),
+   apellido: new FormControl('', [Validators.required]),
+   edad: new FormControl('', [Validators.required, Validators.min(18), Validators.max(99)]),
+   dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+   email: new FormControl('', [Validators.required, Validators.email]),
+   password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+  });
+ }
+
+ ngOnInit(): void {}
+
+ public async onSignUp() {
+  if (this.form.invalid) {
+   return;
+  }
+
+  this.loading = true;
+
+  const newUser = this.form.value;
+
+  try {
+   const userCredential = await this.authService.SignUp(newUser);
+
+   if (userCredential?.user) {
+    const firebaseUser = userCredential.user;
+    
+    // Crear el objeto de usuario para Firestore
+    const usuario: Usuario = {
+     uid: firebaseUser.uid,
+     nombre: newUser.nombre,
+     apellido: newUser.apellido,
+     edad: newUser.edad,
+     dni: newUser.dni,
+     email: firebaseUser.email,
+     password: newUser.password,
+     role: ERole.administrador,
+     habilitado: true,
+     status: EStatus.ACTIVE,
+     emailVerified: firebaseUser.emailVerified
+    };
+
+    // Guardar el usuario en Firestore
+    this.usuariosService.addItem(usuario);
+
+    Swal.fire('Registro exitoso', 'El nuevo administrador ha sido creado.', 'success');
+    this.router.navigate(['/admin/dashboard']);
+   }
+  } catch (error: any) {
+   Swal.fire('Error', error.message, 'error');
+  } finally {
+   this.loading = false;
+  }
+ }
+}

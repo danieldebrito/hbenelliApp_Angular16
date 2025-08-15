@@ -2,10 +2,12 @@ export enum ERole {
   publico = 'publico',
   paciente = 'paciente',
   especialista = 'especialista',
-  administrador = 'administrador'
+  administrador = 'administrador',
+  ADMIN = "ADMIN",
 }
 
 export interface Usuario {
+  [x: string]: any;
   id?: string;
   uid?: string;
   email?: string;

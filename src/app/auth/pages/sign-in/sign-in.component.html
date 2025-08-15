@@ -1,91 +1,116 @@
-    <div class="mt-5">
-    </div>
-        <div class="all">
-            <div class="container h-70">
-                <div class="d-flex justify-content-center h-100">
-                    <div class="user_card">
-        
-                        <div class="d-flex justify-content-center">
-                            <div class="brand_logo_container">
-                                <img src="./assets/logo/logo.png" class="brand_logo" alt="Logo">
-                            </div>
-                        </div>
-                        
-                        <div class="d-flex justify-content-center form_container">
-                            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-        
-                                <div class="input-group mb-3 mt-2">
-                                    <label class="visually-hidden" for="autoSizingInputGroup">e-mail</label>
-                                    <div class="input-group">
-                                        <div class="input-group-text"><i class="fa fa-user"></i></div>
-                                        <input type="text" class="form-control" value="" formControlName="email"
-                                            (click)="errorFalse()" placeholder="email" />
-                                    </div>
-                                </div>
-        
-                                <div *ngIf="mostrarPass">
-                                    <div class="input-group mb-2">
-                                        <label class="visually-hidden" for="autoSizingInputGroup">Contraseña</label>
-                                        <div class="input-group">
-                                            <div class="input-group-text"><i class="fa fa-key"></i></div>
-                                            <input type="text" class="form-control" formControlName="password"
-                                                (click)="errorFalse()" placeholder="contraseña" />
-                                        </div>
-                                    </div>
-        
-                                    <a class=" pass ml-2" (click)="verOcultarPass()"> <i class="fa fa-eye-slash"></i> &nbsp;
-                                        Ocultar
-                                        Contraseña</a>
-                                </div>
-        
-                                <div *ngIf="!mostrarPass">
-        
-                                    <div class="input-group mb-2">
-                                        <label class="visually-hidden" for="autoSizingInputGroup">Contraseña</label>
-                                        <div class="input-group">
-                                            <div class="input-group-text"><i class="fa fa-key"></i></div>
-                                            <input type="password" class="form-control" formControlName="password"
-                                                (click)="errorFalse()" placeholder="contraseña" />
-                                        </div>
-                                    </div>
-        
-                                    <a class=" pass ml-2" (click)="verOcultarPass()"> <i class="fa fa-eye"></i> &nbsp;
-                                        Ver Contraseña</a>
-                                </div>
-        
-        
-                                <div class="alert alert-danger" role="alert" *ngIf="error">
-                                    Usuario o Contraseña Incorrecta
-                                </div>
-        
-                                <div class="d-flex justify-content-center mt-3 login_container">
-                                    <button class="btn login_btn" [disabled]="!loginForm.valid">Ingresá</button>
-                                </div>
-        
-                            </form>
-                        </div>
-        
-                        <div class="m-4">
-                            <div class="d-flex justify-content-center links">
-                                ¿No tenés cuenta? <a [routerLink]="'/sign-up'" class="ml-2"> Registrate</a>
-                            </div>
-                            <div class="d-flex justify-content-center links">
-                                <a [routerLink]="['/forgot-password']">¿Olvidaste tu contraseña?</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="container mt-5">
-                <div class="row row-cols-1 row-cols-md-12 g-12">
-                    <div class="col-md-2" *ngFor="let item of usuariosAccesoRapido">
-                        <div (click)="loguear(item)">
-                            <img class="image" [src]="item.photoURL" alt="" srcset="">
-                        </div>
-                        <p class="fs-4"> {{ item.role }} </p>
-                    </div>
-                </div>
-            </div>
-        
+<div class="all">
+  <div class="container h-70">
+    <div class="d-flex justify-content-center h-100">
+      <div class="user_card shadow-lg">
+        <div class="d-flex justify-content-center">
+          <div class="brand_logo_container">
+            <img src="./assets/logo/logo.png" class="brand_logo" alt="Logo">
+          </div>
         </div>
+        
+        <div class="d-flex justify-content-center form_container">
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="input-group mb-3 mt-2">
+              <div class="input-group">
+                <div class="input-group-text"><i class="fa fa-user"></i></div>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  formControlName="email"
+                  placeholder="Correo electrónico"
+                  autocomplete="email"
+                  [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}"
+                />
+              </div>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+                <div *ngIf="email.errors?.['required']">El correo es requerido</div>
+                <div *ngIf="email.errors?.['email']">Formato de correo inválido</div>
+              </div>
+            </div>
+
+            <div *ngIf="mostrarPass">
+              <div class="input-group mb-2">
+                <div class="input-group">
+                  <div class="input-group-text"><i class="fa fa-key"></i></div>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="password"
+                    placeholder="Contraseña"
+                    autocomplete="current-password"
+                    [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
+                  />
+                </div>
+              </div>
+              <a class="pass ml-2" (click)="verOcultarPass()">
+                <i class="fa fa-eye-slash"></i> Ocultar contraseña
+              </a>
+            </div>
+
+            <div *ngIf="!mostrarPass">
+              <div class="input-group mb-2">
+                <div class="input-group">
+                  <div class="input-group-text"><i class="fa fa-key"></i></div>
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    formControlName="password"
+                    placeholder="Contraseña"
+                    autocomplete="current-password"
+                    [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
+                  />
+                </div>
+              </div>
+              <a class="pass ml-2" (click)="verOcultarPass()">
+                <i class="fa fa-eye"></i> Ver contraseña
+              </a>
+            </div>
+
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback d-block">
+              <div *ngIf="password.errors?.['required']">La contraseña es requerida</div>
+              <div *ngIf="password.errors?.['minlength']">Mínimo 6 caracteres</div>
+            </div>
+
+            <div class="alert alert-danger mt-3" role="alert" *ngIf="error">
+              Usuario o contraseña incorrecta
+            </div>
+
+            <div class="d-flex justify-content-center mt-3 login_container">
+              <button 
+                class="btn login_btn" 
+                [disabled]="form.invalid || loading"
+                [ngClass]="{'loading': loading}"
+              >
+                <span *ngIf="!loading">Ingresar</span>
+                <span *ngIf="loading">
+                  <i class="fa fa-spinner fa-spin"></i> Procesando...
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="m-4">
+          <div class="d-flex justify-content-center links">
+            ¿No tenés cuenta? <a [routerLink]="'/sign-up'" class="ml-2">Registrate</a>
+          </div>
+          <div class="d-flex justify-content-center links">
+            <a [routerLink]="['/forgot-password']">¿Olvidaste tu contraseña?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <h4 class="text-center mb-4">Acceso rápido</h4>
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 justify-content-center">
+      <div class="col text-center" *ngFor="let item of usuariosAccesoRapido">
+        <div class="quick-access-card" (click)="loguear(item)">
+          <img class="image" [src]="item.photoURL || './assets/user-default.png'" alt="{{item.role}}">
+          <p class="mt-2 mb-0">{{ item.role }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
