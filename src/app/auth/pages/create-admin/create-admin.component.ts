@@ -47,7 +47,6 @@ export class CreateAdminComponent {
           text: 'Por favor verifica tu correo electrónico para completar el registro.'
         });
 
-        console.log('Usuario creado:', newUser);
       } catch (error) {
         console.error('Error al registrar el usuario:', error);
         Swal.fire({

@@ -69,7 +69,6 @@ export class SignUpComponent implements OnInit {
       text: 'Por favor verifica tu correo electrónico para completar el registro.'
      });
 
-     console.log('Usuario creado:', usuario);
     } else {
      throw new Error('No se pudo obtener el usuario de Firebase.');
     }

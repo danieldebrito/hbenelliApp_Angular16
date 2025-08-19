@@ -26,13 +26,11 @@ export class CatalogMainComponent implements OnInit {
       this.getRurbroscategorias(this.filteredArticulos);
       this.getInicialArticulos();
 
-      console.log(this.articulos);
     });
   }
 
   filtrar(event: Busqueda) {
     this.busqueda = event;
-    console.log(event);
 
     // Copiamos la lista completa de artículos
     let filteredArticulos = [...this.articulos];
@@ -86,7 +84,6 @@ export class CatalogMainComponent implements OnInit {
   // Método para filtrar los artículos en función del término de búsqueda
   filtrarPorFrase(searchTerm: string) {
 
-    console.log(searchTerm);
 
     const term = searchTerm.toLowerCase();
 

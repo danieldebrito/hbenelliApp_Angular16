@@ -19,7 +19,6 @@ export class UsuariosListadoComponent implements OnInit {
   ){}
 
   public updateUser(user: any){
-    console.log('update user');
 
     this.usuariosSvc.update(user);
   }

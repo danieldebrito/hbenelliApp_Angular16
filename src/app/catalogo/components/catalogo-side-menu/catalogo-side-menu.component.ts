@@ -73,7 +73,6 @@ export class CatalogoSideMenuComponent {
     this.busqueda.rubro = this.altaForm.getRawValue().rubro;
     this.busqueda.categoria = this.altaForm.getRawValue().categoria;
 
-    console.log(this.articulos);
     
     this.busquedaSeleccionada.emit(this.busqueda);
   }

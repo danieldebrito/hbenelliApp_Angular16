@@ -29,7 +29,6 @@ export class UsuariosService {
 
     item.id = newDoc.id; // guardo el id del documento que crea firebase
     setDoc(newDoc, item);
-    console.log('save');
   }
 
   public getItems(): Observable<Usuario[]> {

@@ -24,7 +24,6 @@ export class UsuariosTablaComponent {
 
   // Función para eliminar el usuario (ejemplo básico)
   public deleteAdmin(admin: User): void {
-    console.log('Eliminar admin:', admin);
     // Aquí puedes agregar la lógica para eliminar al usuario
   }
 }
