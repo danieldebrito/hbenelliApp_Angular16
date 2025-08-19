@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +21,8 @@ export class SignInComponent {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef // Inyectamos ChangeDetectorRef
   ) {}
 
   get email() {
@@ -37,41 +37,35 @@ export class SignInComponent {
     this.mostrarPass = !this.mostrarPass;
   }
 
-  async onLogin() {
-    if (this.loginForm.invalid) return;
+async onLogin() {
+  if (this.loginForm.invalid) return;
 
-    this.loading = true;
-    this.errorMessage = null;
-    
-    const { email, password } = this.loginForm.value;
+  this.loading = true;
+  this.errorMessage = null;
+  this.cdr.detectChanges();
 
-    try {
-      // Usar el método SignIn del AuthService
-      await this.auth.SignIn({ email: email!, password: password! });
-      
-      // Redirigir después de autenticación exitosa
-      this.router.navigate(['/home']);
-    } catch (error: any) {
-      console.error('Login error:', error);
-      this.errorMessage = this.getFriendlyErrorMessage(error);
-      
-      // Mostrar alerta de SweetAlert2 para errores importantes
-      if (error.code === 'auth/account-not-enabled' || 
-          error.code === 'auth/email-not-verified') {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error de autenticación',
-          text: this.errorMessage,
-          confirmButtonText: 'Entendido'
-        });
-      }
-    } finally {
-      this.loading = false;
-    }
+  const { email, password } = this.loginForm.value;
+
+  try {
+    await this.auth.SignIn({ email: email!, password: password! });
+  } catch (error: any) {
+    console.error('Login error:', error);
+    this.errorMessage = this.getFriendlyErrorMessage(error);
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Error de autenticación',
+      text: this.errorMessage,
+      confirmButtonText: 'Entendido'
+    });
+  } finally {
+    this.loading = false;
+    this.cdr.detectChanges();
   }
+}
+
 
   private getFriendlyErrorMessage(error: any): string {
-    // Manejar errores específicos de Firebase
     if (error?.code) {
       switch (error.code) {
         case 'auth/invalid-credential':
@@ -91,7 +85,6 @@ export class SignInComponent {
       }
     }
     
-    // Manejar errores personalizados del servicio
     return error?.message || 'Error desconocido al iniciar sesión';
   }
 }

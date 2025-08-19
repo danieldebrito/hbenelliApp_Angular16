@@ -6,6 +6,14 @@ export enum ERole {
   ADMIN = "ADMIN",
 }
 
+export enum EStatus {
+  activo = 'activo',
+  inactivo = 'inactivo',
+  suspendido = 'suspendido',
+  pendiente = 'pendiente',
+}
+
+
 export interface Usuario {
   [x: string]: any;
   id?: string;

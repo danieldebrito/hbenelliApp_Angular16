@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
     this.authService.getCurrentUser().subscribe((user) => {
       this.currentUser = user;
 
-      console.log(this.currentUser);
+      console.table(this.currentUser);
 
       this.isAdmin = user?.role === 'administrador';
     });
