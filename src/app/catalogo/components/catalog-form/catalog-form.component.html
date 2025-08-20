@@ -9,13 +9,18 @@
           <input type="file" id="urlPhoto" (change)="onFileChange($event)" 
                  class="form-control" accept="image/*" />
           
-          <!-- Progress Bar -->
+          <!-- Progress Bar with Spinner -->
           <div *ngIf="uploadProgress !== null" class="progress-bar-container">
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" 
-                   [style.width.%]="uploadProgress" 
-                   [attr.aria-valuenow]="uploadProgress">
-                {{ uploadProgress }}%
+            <div class="d-flex align-items-center">
+              <div class="progress flex-grow-1 me-2">
+                <div class="progress-bar" role="progressbar" 
+                     [style.width.%]="uploadProgress" 
+                     [attr.aria-valuenow]="uploadProgress">
+                  {{ uploadProgress }}%
+                </div>
+              </div>
+              <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="uploadProgress < 100">
+                <span class="visually-hidden">Cargando...</span>
               </div>
             </div>
           </div>
@@ -33,19 +38,32 @@
       </div>
       
       <div class="col-md-8">
-        <div class="form-group">
-          <label for="nombre">Nombre:</label>
-          <input id="nombre" formControlName="nombre" class="form-control input-medium" />
-          <div *ngIf="nombre.invalid && (nombre.touched || nombre.dirty)" class="error">
-            <div *ngIf="nombre.hasError('required')">Nombre es requerido</div>
-            <div *ngIf="nombre.hasError('minlength')">Mínimo 3 caracteres</div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="codigo">Código:</label>
+              <input id="codigo" formControlName="codigo" class="form-control" />
+              <div *ngIf="codigo.invalid && (codigo.touched || codigo.dirty)" class="error">
+                <div *ngIf="codigo.hasError('required')">Código es requerido</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="nombre">Nombre:</label>
+              <input id="nombre" formControlName="nombre" class="form-control" />
+              <div *ngIf="nombre.invalid && (nombre.touched || nombre.dirty)" class="error">
+                <div *ngIf="nombre.hasError('required')">Nombre es requerido</div>
+                <div *ngIf="nombre.hasError('minlength')">Mínimo 3 caracteres</div>
+              </div>
+            </div>
           </div>
         </div>
         
         <div class="form-group">
           <label for="descripcion">Descripción:</label>
           <textarea id="descripcion" formControlName="descripcion" 
-                    class="form-control input-medium" rows="3"></textarea>
+                    class="form-control" rows="3"></textarea>
           <div *ngIf="descripcion.invalid && (descripcion.touched || descripcion.dirty)" class="error">
             <div *ngIf="descripcion.hasError('required')">Descripción es requerida</div>
             <div *ngIf="descripcion.hasError('minlength')">Mínimo 10 caracteres</div>
@@ -55,76 +73,78 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="codigo">Código:</label>
-              <input id="codigo" formControlName="codigo" class="form-control input-small" />
-              <div *ngIf="codigo.invalid && (codigo.touched || codigo.dirty)" class="error">
-                <div *ngIf="codigo.hasError('required')">Código es requerido</div>
+              <label for="rubro">Rubro:</label>
+              <select id="rubro" formControlName="rubro" class="form-control" (change)="onRubroChange()">
+                <option value="" disabled selected>Seleccione un rubro</option>
+                <option *ngFor="let rubro of rubros" [value]="rubro">{{ rubro }}</option>
+              </select>
+              <div *ngIf="rubro.invalid && (rubro.touched || rubro.dirty)" class="error">
+                <div *ngIf="rubro.hasError('required')">Rubro es requerido</div>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="peso">Peso:</label>
-              <input id="peso" formControlName="peso" class="form-control input-small" />
+              <label for="categoria">Categoría:</label>
+              <select id="categoria" formControlName="categoria" class="form-control">
+                <option value="" disabled selected>Seleccione una categoría</option>
+                <option *ngFor="let categoria of categoriasFiltradas" [value]="categoria">{{ categoria }}</option>
+              </select>
+              <div *ngIf="categoria.invalid && (categoria.touched || categoria.dirty)" class="error">
+                <div *ngIf="categoria.hasError('required')">Categoría es requerida</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="peso">Cantidad:</label>
+              <input id="peso" formControlName="peso" class="form-control" />
               <div *ngIf="peso.invalid && (peso.touched || peso.dirty)" class="error">
                 <div *ngIf="peso.hasError('required')">Peso es requerido</div>
                 <div *ngIf="peso.hasError('pattern')">Formato inválido (ej: 12.34)</div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="unidad">Unidad:</label>
-              <input id="unidad" formControlName="unidad" class="form-control input-small" />
+              <select id="unidad" formControlName="unidad" class="form-control">
+                <option value="" disabled selected>Seleccione una unidad</option>
+                <option value="kg">kg</option>
+                <option value="g">gr</option>
+                <option value="un">unidad</option>
+                <option value="m">mts</option>
+                <option value="cm">cm</option>
+                <option value="l">litros</option>
+              </select>
               <div *ngIf="unidad.invalid && (unidad.touched || unidad.dirty)" class="error">
                 <div *ngIf="unidad.hasError('required')">Unidad es requerida</div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="precioLista">Precio Lista:</label>
-              <input id="precioLista" formControlName="precioLista" class="form-control input-small" />
+              <input id="precioLista" formControlName="precioLista" class="form-control" />
               <div *ngIf="precioLista.invalid && (precioLista.touched || precioLista.dirty)" class="error">
                 <div *ngIf="precioLista.hasError('required')">Precio Lista es requerido</div>
                 <div *ngIf="precioLista.hasError('pattern')">Formato inválido (ej: 123.45)</div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="precioNeto">Precio Neto:</label>
-              <input id="precioNeto" formControlName="precioNeto" class="form-control input-small" />
+              <input id="precioNeto" formControlName="precioNeto" class="form-control" />
               <div *ngIf="precioNeto.invalid && (precioNeto.touched || precioNeto.dirty)" class="error">
                 <div *ngIf="precioNeto.hasError('required')">Precio Neto es requerido</div>
                 <div *ngIf="precioNeto.hasError('pattern')">Formato inválido (ej: 100.50)</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="rubro">Rubro:</label>
-              <input id="rubro" formControlName="rubro" class="form-control input-small" />
-              <div *ngIf="rubro.invalid && (rubro.touched || rubro.dirty)" class="error">
-                <div *ngIf="rubro.hasError('required')">Rubro es requerido</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="categoria">Categoría:</label>
-              <input id="categoria" formControlName="categoria" class="form-control input-small" />
-              <div *ngIf="categoria.invalid && (categoria.touched || categoria.dirty)" class="error">
-                <div *ngIf="categoria.hasError('required')">Categoría es requerida</div>
               </div>
             </div>
           </div>
@@ -133,7 +153,7 @@
         <div class="form-group">
           <label for="observaciones">Observaciones:</label>
           <textarea id="observaciones" formControlName="observaciones" 
-                    class="form-control input-medium" rows="3"></textarea>
+                    class="form-control" rows="3"></textarea>
         </div>
       </div>
     </div>

@@ -4,86 +4,189 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+  
   h2 {
     margin-bottom: 20px;
+    color: #333;
   }
-
+  
   .form-group {
     margin-bottom: 15px;
-
+    
     label {
       display: block;
       font-weight: bold;
       margin-bottom: 5px;
+      color: #555;
     }
-
+    
     .form-control {
-      padding: 8px;
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
       box-sizing: border-box;
+      transition: border-color 0.3s;
       
-      /* Input sizing */
-      &.input-small {
-        max-width: 200px;
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
       }
       
-      &.input-medium {
-        max-width: 400px;
+      &.is-invalid {
+        border-color: #dc3545;
       }
     }
-
+    
     .error {
       color: #dc3545;
-      font-size: 0.85rem;
+      font-size: 0.9em;
       margin-top: 5px;
     }
   }
-
-  .preview-img {
-    max-width: 100%;
-    max-height: 200px;
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    padding: 5px;
-    border-radius: 4px;
-  }
-
+  
   .progress-bar-container {
     margin-top: 10px;
     
     .progress {
       height: 20px;
-      background-color: #e9ecef;
+      background-color: #f5f5f5;
       border-radius: 4px;
       overflow: hidden;
       
       .progress-bar {
         height: 100%;
         background-color: #007bff;
-        text-align: center;
-        line-height: 20px;
         color: white;
-        transition: width 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: width 0.3s ease;
       }
     }
   }
-
-  button.btn {
-    padding: 8px 20px;
+  
+  .image-preview {
+    margin-top: 10px;
+    
+    .preview-img {
+      max-width: 100%;
+      max-height: 200px;
+      border: 1px solid #ddd;
+      padding: 5px;
+      border-radius: 4px;
+    }
+  }
+  
+  .btn-primary {
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    position: relative;
-
+    transition: background-color 0.3s;
+    
+    &:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+    
     &:disabled {
       background-color: #6c757d;
       cursor: not-allowed;
     }
-
-    .spinner-border {
-      margin-left: 8px;
+    
+    .spinner-border-sm {
+      margin-left: 5px;
     }
   }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    
+    .col-md-4, .col-md-6, .col-md-8 {
+      position: relative;
+      width: 100%;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    
+    @media (min-width: 768px) {
+      .col-md-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+      }
+      
+      .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+      
+      .col-md-8 {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+      }
+    }
+  }
+
+  /* Estilos para la barra de progreso mejorada */
+  .progress-bar-container {
+    .d-flex {
+      align-items: center;
+    }
+    
+    .progress {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+    
+    .spinner-border {
+      animation: spinner-border 0.75s linear infinite;
+    }
+  }
+}
+
+/* Animación personalizada para el spinner */
+@keyframes spinner-border {
+  to { transform: rotate(360deg); }
+}
+
+/* Efecto de pulso para el spinner */
+.spinner-border {
+  animation: spinner-border 0.75s linear infinite, pulse 1.5s ease-in-out infinite both;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Spinner de carga para procesamiento de imagen */
+.image-loading {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

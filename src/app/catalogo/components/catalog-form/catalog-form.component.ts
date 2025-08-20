@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { StorageService } from 'src/app/services/firebase/File/storage.service';
 import { ActivatedRoute } from '@angular/router';
+import { Articulo } from 'src/app/class/articulo';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-catalog-form',
@@ -19,6 +21,15 @@ export class CatalogFormComponent implements OnInit {
   uploadProgress: number | null = null;
   isSubmitting = false;
   showPhotoError = false;
+  isUploading = false;
+  
+  // Arrays para selects
+  rubros: string[] = [];
+  categorias: string[] = [];
+  categoriasFiltradas: string[] = [];
+  
+  // Relación entre rubros y categorías
+  rubroCategoriaMap: { [key: string]: string[] } = {};
 
   // Form control getters
   get nombre() { return this.articuloForm.get('nombre'); }
@@ -60,6 +71,63 @@ export class CatalogFormComponent implements OnInit {
         this.loadArticulo();
       }
     });
+    
+    this.loadRubrosYCategorias();
+  }
+
+  // Cargar rubros y categorías desde el servicio
+  loadRubrosYCategorias() {
+    this.articulosService.gets().subscribe(articulos => {
+      this.processArticulosForRubrosAndCategorias(articulos);
+    });
+  }
+
+  // Procesar artículos para extraer rubros y categorías
+  private processArticulosForRubrosAndCategorias(articulos: Articulo[]): void {
+    // Extraer rubros únicos
+    this.rubros = Array.from(new Set(articulos
+      .map(a => a.rubro)
+      .filter(r => r != null && r !== ''))) as string[];
+    
+    // Extraer categorías únicas
+    this.categorias = Array.from(new Set(articulos
+      .map(a => a.categoria)
+      .filter(c => c != null && c !== ''))) as string[];
+    
+    // Crear mapa de rubro a categorías
+    this.rubroCategoriaMap = {};
+    articulos.forEach(articulo => {
+      if (articulo.rubro && articulo.categoria) {
+        if (!this.rubroCategoriaMap[articulo.rubro]) {
+          this.rubroCategoriaMap[articulo.rubro] = [];
+        }
+        if (!this.rubroCategoriaMap[articulo.rubro].includes(articulo.categoria)) {
+          this.rubroCategoriaMap[articulo.rubro].push(articulo.categoria);
+        }
+      }
+    });
+    
+    this.categoriasFiltradas = [...this.categorias];
+    
+    // Si estamos en modo edición, actualizar las categorías filtradas
+    if (this.isEditMode && this.articuloForm.value.rubro) {
+      this.onRubroChange();
+    }
+  }
+
+  // Cuando cambia el rubro, filtrar las categorías
+  onRubroChange() {
+    const selectedRubro = this.rubro?.value;
+    if (selectedRubro && this.rubroCategoriaMap[selectedRubro]) {
+      this.categoriasFiltradas = this.rubroCategoriaMap[selectedRubro];
+    } else {
+      this.categoriasFiltradas = [...this.categorias];
+    }
+    
+    // Resetear la categoría si ya no está disponible para el rubro seleccionado
+    if (this.categoria?.value && !this.categoriasFiltradas.includes(this.categoria.value)) {
+      this.categoria.setValue('');
+    }
   }
 
   loadArticulo() {
@@ -67,6 +135,11 @@ export class CatalogFormComponent implements OnInit {
       this.articulosService.getById(this.articuloId).subscribe((articulo) => {
         this.articuloForm.patchValue(articulo);
         this.imageUrl = articulo.urlPhoto;
+        
+        // Si estamos en modo edición, cargar las categorías apropiadas para el rubro
+        if (articulo.rubro) {
+          this.onRubroChange();
+        }
       });
     }
   }
@@ -76,6 +149,9 @@ export class CatalogFormComponent implements OnInit {
       this.imageFile = event.target.files[0];
       const reader = new FileReader();
 
+      // Mostrar spinner de carga
+      this.isUploading = true;
+      
       reader.readAsDataURL(this.imageFile);
       reader.onload = (e: any) => {
         const img = new Image();
@@ -105,12 +181,23 @@ export class CatalogFormComponent implements OnInit {
                 });
                 this.imageUrl = URL.createObjectURL(this.imageFile);
                 this.showPhotoError = false;
+                
+                // Ocultar spinner después de procesar la imagen
+                this.isUploading = false;
               }
             },
             'image/png',
             1
           );
         };
+        
+        img.onerror = () => {
+          this.isUploading = false;
+        };
+      };
+      
+      reader.onerror = () => {
+        this.isUploading = false;
       };
     }
   }
@@ -142,12 +229,14 @@ export class CatalogFormComponent implements OnInit {
         this.uploadProgress = 0;
         downloadURL = await this.storageService.uploadFile(
           this.imageFile, 
-          (progress) => this.uploadProgress = progress
+          (progress) => {
+            this.uploadProgress = progress;
+          }
         );
       }
 
       // Prepare form data
-      const formData = {
+      const formData: Articulo = {
         ...this.articuloForm.value,
         urlPhoto: downloadURL
       };
@@ -155,17 +244,33 @@ export class CatalogFormComponent implements OnInit {
       // Save or update
       if (this.isEditMode) {
         await this.articulosService.update(this.articuloId!, formData).toPromise();
-        alert('Artículo actualizado con éxito');
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Artículo actualizado con éxito',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
       } else {
         await this.articulosService.save(formData).toPromise();
-        alert('Artículo agregado con éxito');
-        this.articuloForm.reset();
-        this.imageUrl = null;
-        this.imageFile = null;
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Artículo agregado con éxito',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          this.articuloForm.reset();
+          this.imageUrl = null;
+          this.imageFile = null;
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Ocurrió un error. Por favor intente nuevamente');
+      Swal.fire({
+        title: 'Error',
+        text: 'Ocurrió un error. Por favor intente nuevamente',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
     } finally {
       this.isSubmitting = false;
       this.uploadProgress = null;
